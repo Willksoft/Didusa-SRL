@@ -20,9 +20,9 @@ import {
   Building2, 
   Wind, 
   ShieldCheck,
-  FileCheck,
   Activity,
-  FileText
+  FileText,
+  UserCheck
 } from 'lucide-react';
 
 export const CorporatePresentation = () => {
@@ -31,6 +31,7 @@ export const CorporatePresentation = () => {
 
   const WHATSAPP_LINK = "https://wa.me/18292088107";
   const EMAIL_CONTACT = "fferreras@didusa.onmicrosoft.com";
+  const MAIN_PHONE = "+1 (809) 662-8574";
 
   // Prevent parent scroll from disrupting single slide view
   useEffect(() => {
@@ -66,7 +67,7 @@ export const CorporatePresentation = () => {
   }, [viewMode]);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans select-none antialiased print:bg-white print:text-black">
+    <div className="min-h-screen bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased print:bg-white print:text-black">
       {/* Dynamic Style block for precise print control and desktop scroll locks */}
       <style>{`
         @media print {
@@ -75,7 +76,9 @@ export const CorporatePresentation = () => {
             color: #000000 !important;
             margin: 0 !important;
             padding: 0 !important;
-            font-size: 12pt !important;
+            font-size: 11pt !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
           .no-print {
             display: none !important;
@@ -98,25 +101,7 @@ export const CorporatePresentation = () => {
             position: relative !important;
             box-sizing: border-box !important;
             overflow: hidden !important;
-          }
-          /* High-impact black text in print */
-          .print-text-dark {
-            color: #111827 !important;
-          }
-          .print-text-muted {
-            color: #4b5563 !important;
-          }
-          .print-bg-light {
-            background-color: #f3f4f6 !important;
-          }
-          .print-border {
-            border-color: #d1d5db !important;
-          }
-          .print-primary-bg {
-            background-color: #0056b3 !important;
-          }
-          .print-primary-text {
-            color: #0056b3 !important;
+            padding: 1.2in !important;
           }
         }
         @media (min-width: 1024px) {
@@ -128,80 +113,82 @@ export const CorporatePresentation = () => {
         /* Lock aspect ratio in desktop slideshow */
         .landscape-slide-frame {
           aspect-ratio: 11 / 8.5;
-          max-height: calc(100vh - 120px);
+          max-height: calc(100vh - 140px);
           width: 100%;
           max-width: 1050px;
         }
       `}</style>
 
       {/* FLOATING ACTION HEADER (HIDDEN WHEN PRINTING) */}
-      <header className="no-print bg-slate-950 border-b border-slate-800 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50 shadow-md">
+      <header className="no-print bg-white border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50 shadow-sm text-slate-800">
         <div className="flex items-center gap-3">
-          <Link to="/" className="text-secondary hover:text-white transition flex items-center gap-1.5 text-sm font-medium">
+          <Link to="/" className="text-blue-600 hover:text-blue-800 transition flex items-center gap-1.5 text-sm font-semibold">
             <ArrowLeft size={16} />
-            <span>Volver a Inicio</span>
+            <span>Volver a la Web</span>
           </Link>
-          <span className="text-slate-600">|</span>
+          <span className="text-slate-300">|</span>
           <div className="flex items-center gap-2">
-            <Layers className="text-secondary" size={20} />
-            <h1 className="font-extrabold tracking-tight text-white text-base">DIDUSA SRL <span className="font-light text-slate-400">· Dossier de Presentación</span></h1>
+            <Layers className="text-blue-600" size={20} />
+            <h1 className="font-extrabold tracking-tight text-slate-900 text-base">
+              DIDUSA SRL <span className="font-light text-slate-500">· Dossier de Presentación</span>
+            </h1>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="bg-slate-900 border border-slate-800 p-1 rounded-lg flex items-center gap-1">
+          <div className="bg-slate-100 p-1 rounded-lg flex items-center gap-1 border border-slate-200">
             <button
               onClick={() => { setViewMode('slide'); setActiveSlide(0); }}
               className={`px-3 py-1.5 rounded text-xs font-semibold transition ${
                 viewMode === 'slide' 
-                  ? 'bg-primary text-white shadow-sm' 
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-blue-600 text-white shadow-sm' 
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Diapositiva
+              Vista Diapositivas
             </button>
             <button
               onClick={() => setViewMode('all')}
               className={`px-3 py-1.5 rounded text-xs font-semibold transition ${
                 viewMode === 'all' 
-                  ? 'bg-primary text-white shadow-sm' 
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-blue-600 text-white shadow-sm' 
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Ver Todo (Imprimible)
+              Vista Imprimible (Todo)
             </button>
           </div>
 
           <button
             onClick={() => window.print()}
-            className="bg-whatsapp hover:bg-whatsappDark text-dark px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition shadow-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition shadow"
           >
             <Printer size={16} />
-            Imprimir Dossier (PDF)
+            Imprimir Dossier (11x8.5)
           </button>
         </div>
       </header>
 
       {/* PRESENTATION CONTAINER */}
-      <main className="flex-1 flex flex-col items-center justify-center p-4 lg:p-8 overflow-y-auto print:p-0 print:overflow-visible">
+      <main className="flex-1 flex flex-col items-center justify-center p-4 lg:p-6 overflow-y-auto print:p-0 print:overflow-visible">
         
         {/* INTERACTIVE NAVIGATION IN SLIDESHOW MODE AND SLIDE TITLE */}
         {viewMode === 'slide' && (
-          <div className="no-print w-full max-w-[1050px] flex items-center justify-between mb-4">
-            <div className="text-xs text-slate-400 font-mono tracking-wider font-semibold">
-              DIAPOSITIVA {activeSlide + 1} DE {slidesCount}
+          <div className="no-print w-full max-w-[1050px] flex items-center justify-between mb-3 text-slate-600">
+            <div className="text-xs font-mono tracking-wider font-bold bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm text-blue-600">
+              PÁGINA {activeSlide + 1} DE {slidesCount} · 11" x 8.5"
             </div>
             <div className="flex items-center gap-2">
               <button 
                 onClick={prevSlide}
-                className="p-2 rounded bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 transition"
+                className="p-2 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 transition shadow-sm"
                 title="Diapositiva Anterior"
               >
                 <ArrowLeft size={16} />
               </button>
               <button 
                 onClick={nextSlide}
-                className="p-2 rounded bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 transition"
+                className="p-2 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 transition shadow-sm"
                 title="Siguiente Diapositiva"
               >
                 <ArrowRight size={16} />
@@ -217,66 +204,78 @@ export const CorporatePresentation = () => {
           
           {/* SLIDE 1: PORTADA */}
           {(viewMode === 'all' || activeSlide === 0) && (
-            <div className="print-slide landscape-slide-frame bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden text-slate-100 transition-all duration-300">
-              {/* Engineering Blueprint lines effect */}
-              <div className="absolute inset-0 opacity-10 pointer-events-none stroke-blue-400">
+            <div className="print-slide landscape-slide-frame bg-white border border-slate-200 shadow-2xl rounded-2xl p-10 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300">
+              {/* Engineering Blue grid overlay for subtle corporate style */}
+              <div className="absolute inset-0 opacity-[0.04] pointer-events-none stroke-blue-700">
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
-                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
+                    <pattern id="grid-pattern-light" width="30" height="30" patternUnits="userSpaceOnUse">
+                      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="currentColor" strokeWidth="1" />
                     </pattern>
                   </defs>
-                  <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+                  <rect width="100%" height="100%" fill="url(#grid-pattern-light)" />
                 </svg>
               </div>
 
-              {/* Decorative side badge */}
-              <div className="absolute top-0 right-0 h-40 w-40 bg-gradient-to-br from-primary/30 to-secondary/10 blur-3xl pointer-events-none" />
+              {/* Cover Background Graphic */}
+              <div className="absolute top-0 right-0 w-1/2 h-full hidden md:block">
+                <div 
+                  className="w-full h-full object-cover rounded-r-2xl"
+                  style={{
+                    backgroundImage: `linear-gradient(to right, #ffffff 15%, transparent 100%), url('https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=1000&q=80')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                />
+              </div>
 
               {/* Slider Header */}
               <div className="flex justify-between items-start z-10">
                 <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 bg-secondary rounded-full animate-pulse print:bg-blue-600 block" />
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-secondary print:text-blue-600 font-mono">Dossier Institucional</span>
+                  <span className="h-3 w-3 bg-blue-600 rounded-full animate-pulse block" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-blue-600 font-mono">Dossier de Presentación</span>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-black tracking-tight text-white print:text-blue-900 font-mono">DIDUSA SRL</div>
-                  <div className="text-[9px] text-slate-400 print:text-gray-500 tracking-wider">DISEÑOS E INSTALACIONES DE DUCTOS</div>
+                  <div className="text-xl font-black tracking-tight text-blue-900 font-sans">DIDUSA SRL</div>
+                  <div className="text-[9px] text-slate-500 font-mono tracking-wider font-semibold uppercase">Ingeniería & Climatización</div>
                 </div>
               </div>
 
               {/* Cover Main Content */}
-              <div className="my-auto z-10 space-y-4">
-                <h2 className="text-5xl lg:text-6xl font-black tracking-tight leading-none text-white print:text-black">
-                  INFORME <br />
-                  <span className="bg-gradient-to-r from-secondary to-blue-500 bg-clip-text text-transparent print:from-blue-600 print:to-blue-900 print:text-blue-600">
-                    CORPORATIVO EMPRESARIAL
-                  </span>
-                </h2>
-                <div className="h-1.5 w-32 bg-primary print:bg-blue-600" />
-                <p className="text-lg text-slate-300 print:text-gray-700 max-w-2xl font-light">
-                  Líderes apasionados en el diseño, fabricación e instalación integral de ductos, sistemas de climatización industrial avanzados (HVAC), fontanería y construcción ligera.
+              <div className="my-auto z-10 space-y-4 max-w-2xl">
+                <div className="space-y-1">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2.5 py-1 rounded">Mundo Electromecánico</span>
+                  <h2 className="text-4xl lg:text-5xl font-black tracking-tight leading-none text-slate-900 pt-1">
+                    INFORME <br />
+                    <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                      CORPORATIVO EMPRESARIAL
+                    </span>
+                  </h2>
+                </div>
+                <div className="h-1.5 w-32 bg-blue-600 rounded" />
+                <p className="text-base text-slate-600 leading-relaxed max-w-xl font-medium">
+                  Diseño, fabricación e instalación integral de ductos galvanizados, sistemas de climatización industrial avanzados (HVAC), fontanería especializada y obras electromecánicas comerciales.
                 </p>
               </div>
 
               {/* Slider Footer */}
-              <div className="border-t border-slate-800/80 pt-6 flex justify-between items-end z-10 print:border-gray-300">
+              <div className="border-t border-slate-100 pt-6 flex justify-between items-end z-10">
                 <div className="grid grid-cols-2 gap-x-8 gap-y-1 text-xs">
                   <div>
-                    <span className="text-[10px] text-slate-500 print:text-gray-400 block uppercase tracking-wider">Ubicación</span>
-                    <strong className="text-slate-300 print:text-gray-900 font-medium flex items-center gap-1">
-                      <MapPin size={12} className="text-secondary print:text-blue-600" /> Santo Domingo, RD
+                    <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Ubicación Central</span>
+                    <strong className="text-slate-700 font-semibold flex items-center gap-1 mt-0.5">
+                      <MapPin size={13} className="text-blue-600" /> Punta Cana, Rep. Dom.
                     </strong>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-500 print:text-gray-400 block uppercase tracking-wider">Contacto</span>
-                    <strong className="text-slate-300 print:text-gray-900 font-medium flex items-center gap-1">
-                      <Mail size={12} className="text-secondary print:text-blue-600" /> {EMAIL_CONTACT}
+                    <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Enlace Administrativo</span>
+                    <strong className="text-slate-700 font-semibold flex items-center gap-1 mt-0.5">
+                      <Mail size={13} className="text-blue-600" /> {EMAIL_CONTACT}
                     </strong>
                   </div>
                 </div>
-                <div className="text-xs font-mono text-slate-500 print:text-gray-400">
-                  didusasrl.com · Pág. 1
+                <div className="text-xs font-mono text-slate-400">
+                  Residencial Sol Bavaro · Pág. 1
                 </div>
               </div>
             </div>
@@ -284,177 +283,210 @@ export const CorporatePresentation = () => {
 
           {/* SLIDE 2: PERFIL & MISION, VISION, VALORES */}
           {(viewMode === 'all' || activeSlide === 1) && (
-            <div className="print-slide landscape-slide-frame bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl p-12 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300 text-slate-100">
+            <div className="print-slide landscape-slide-frame bg-white border border-slate-200 shadow-2xl rounded-2xl p-10 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300 text-slate-800">
               {/* Header */}
-              <div className="flex justify-between items-center pb-4 border-b border-slate-800/80 print:border-gray-200">
+              <div className="flex justify-between items-center pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-slate-900 text-secondary rounded-lg print:bg-blue-50 print:text-blue-600">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
                     <Building2 size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold tracking-tight text-white print:text-gray-900 text-lg">Didusa SRL</h3>
-                    <p className="text-[10px] text-slate-400 print:text-gray-500 uppercase tracking-widest font-semibold">Perfil & Filosofía Corporativa</p>
+                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">DIDUSA SRL</h3>
+                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold">Perfil & Organización</p>
                   </div>
                 </div>
-                <div className="text-right text-xs text-slate-400 print:text-gray-500 font-mono">
+                <div className="text-right text-xs text-slate-400 font-mono">
                   Dossier Institucional · Pág. 2
                 </div>
               </div>
 
-              {/* Left/Right Grid Content */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 my-auto py-2">
-                {/* Perfil (Left) */}
-                <div className="md:col-span-5 space-y-4">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-secondary print:text-blue-600 font-mono">Perfil de la Empresa</h4>
-                  <div className="space-y-3">
-                    <p className="text-sm text-slate-300 print:text-gray-800 leading-relaxed">
-                      Somos una empresa dominicana especializada en soluciones electromecánicas integrales, dedicada al diseño, fabricación, instalación y mantenimiento de sistemas industriales, comerciales y residenciales.
-                    </p>
-                    <p className="text-sm text-slate-300 print:text-gray-800 leading-relaxed font-light">
-                      Contamos con personal técnico altamente capacitado y amplia experiencia para afrontar los desafíos climáticos y de ingeniería en proyectos de gran envergadura.
-                    </p>
-                  </div>
-                  <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800 print:bg-gray-50 print:border-gray-200">
-                    <p className="text-xs text-slate-400 print:text-gray-600 leading-relaxed font-medium italic">
-                      "Garantizamos calidad, eficiencia y un profundo respaldo técnico especializado en cada etapa para de esta forma asegurar la satisfacción de nuestra distinguida clientela."
-                    </p>
-                  </div>
-                </div>
-
-                {/* Misión, Visión, Valores (Right) */}
-                <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Mission */}
-                  <div className="bg-slate-900/40 p-4 rounded-xl border border-slate-800 print:bg-gray-50 print:border-gray-200">
-                    <div className="flex items-center gap-2 text-secondary print:text-blue-600 mb-2">
-                      <Target size={18} />
-                      <h5 className="font-extrabold text-sm text-white print:text-gray-900">Misión</h5>
-                    </div>
-                    <p className="text-xs text-slate-300 print:text-gray-800 leading-relaxed">
-                      Brindar soluciones electromecánicas integrales con altos estándares de calidad, garantizando eficiencia, innovación y satisfacción total a nuestros clientes.
+              {/* Grid Content with Unsplash Image */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 my-auto py-2 items-center">
+                
+                {/* Text Block left (7 Cols) */}
+                <div className="md:col-span-7 space-y-4">
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600">Quiénes Somos</span>
+                    <h4 className="text-xl font-bold text-slate-900 leading-tight">Soluciones Electromecánicas y Climatización de Vanguardia</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Somos una empresa dominicana especializada en soluciones electromecánicas integrales. Nos dedicamos con pasión al diseño, fabricación, montaje y mantenimiento de sistemas residenciales, comerciales e industriales a nivel nacional.
                     </p>
                   </div>
 
-                  {/* Vision */}
-                  <div className="bg-slate-900/40 p-4 rounded-xl border border-slate-800 print:bg-gray-50 print:border-gray-200">
-                    <div className="flex items-center gap-2 text-secondary print:text-blue-600 mb-2">
-                      <Eye size={18} />
-                      <h5 className="font-extrabold text-sm text-white print:text-gray-900">Visión</h5>
+                  {/* Mission / Vision Cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                      <div className="flex items-center gap-2 text-blue-600 mb-1">
+                        <Target size={15} />
+                        <h5 className="font-bold text-xs text-slate-950">Misión</h5>
+                      </div>
+                      <p className="text-[11px] text-slate-600 leading-normal">
+                        Brindar servicios electromecánicos excepcionales con altos estándares de calidad, asegurando eficiencia térmica, durabilidad e innovación continua.
+                      </p>
                     </div>
-                    <p className="text-xs text-slate-300 print:text-gray-800 leading-relaxed">
-                      Ser una empresa líder en servicios electromecánicos, HVAC e hidráulicos, reconocida por la excelencia técnica, confiabilidad y compromiso en cada proyecto.
-                    </p>
+
+                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                      <div className="flex items-center gap-2 text-blue-600 mb-1">
+                        <Eye size={15} />
+                        <h5 className="font-bold text-xs text-slate-950">Visión</h5>
+                      </div>
+                      <p className="text-[11px] text-slate-600 leading-normal">
+                        Ser líderes absolutos en climatización avanzada y ductos, reconocidos por la excelencia de ingeniería y valor ético en cada obra.
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Valores (Span both columns) */}
-                  <div className="sm:col-span-2 bg-slate-900/40 p-4 rounded-xl border border-slate-800 print:bg-gray-50 print:border-gray-200">
-                    <div className="flex items-center gap-2 text-secondary print:text-blue-600 mb-3">
-                      <Award size={18} />
-                      <h5 className="font-extrabold text-sm text-white print:text-gray-900">Nuestros Valores Pilares</h5>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {['Responsabilidad', 'Honestidad', 'Profesionalismo', 'Compromiso', 'Calidad', 'Innovación', 'Trabajo en equipo'].map((val, i) => (
-                        <span 
-                          key={i} 
-                          className="px-2.5 py-1 rounded bg-slate-800 border border-slate-700/80 text-secondary text-[11px] font-semibold print:bg-blue-50 print:border-blue-100 print:text-blue-700"
-                        >
+                  {/* Valores */}
+                  <div className="space-y-1.5 pt-1">
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Valores Corporativos</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['Responsabilidad', 'Honestidad', 'Profesionalismo', 'Calidad', 'Innovación', 'Trabajo en Equipo'].map((val, i) => (
+                        <span key={i} className="px-2 py-0.5 text-[10px] bg-blue-50 border border-blue-100 text-blue-700 font-semibold rounded">
                           ✓ {val}
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
+
+                {/* Right side - curated Image */}
+                <div className="md:col-span-5 h-full min-h-[180px] md:min-h-[260px] relative rounded-xl overflow-hidden shadow-md border border-slate-100">
+                  <img 
+                    src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=600&q=80"
+                    alt="Ingeniería Civil y Planificación"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-blue-900/10 mix-blend-multiply" />
+                  <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-sm p-3 rounded-lg border border-slate-100">
+                    <p className="text-[10px] font-bold text-slate-900 uppercase tracking-widest flex items-center gap-1">
+                      <UserCheck size={12} className="text-blue-600" /> Presencia e Impacto
+                    </p>
+                    <p className="text-[9px] text-slate-500 font-medium">Ubicados en Punta Cana para servicio expedito a toda la región Este y el país.</p>
+                  </div>
+                </div>
+
               </div>
 
               {/* Footer */}
-              <div className="border-t border-slate-900 pt-4 flex justify-between items-center text-xs text-slate-500 print:border-gray-150 print:text-gray-400 font-mono">
-                <div>didusasrl.com · Climatización Profesional</div>
-                <div>Líderes en RD</div>
+              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
+                <div>Residencial Sol Bavaro, Punta Cana · Rep. Dominicana</div>
+                <div>Compromiso y Confiabilidad</div>
               </div>
             </div>
           )}
 
           {/* SLIDE 3: PORTAFOLIO PARTE 1 (DUCTOS, HVAC GENERAL, TRANE) */}
           {(viewMode === 'all' || activeSlide === 2) && (
-            <div className="print-slide landscape-slide-frame bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl p-12 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300 text-slate-100">
+            <div className="print-slide landscape-slide-frame bg-white border border-slate-200 shadow-2xl rounded-2xl p-10 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300 text-slate-800">
               {/* Header */}
-              <div className="flex justify-between items-center pb-4 border-b border-slate-800/80 print:border-gray-200">
+              <div className="flex justify-between items-center pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-slate-900 text-secondary rounded-lg print:bg-blue-50 print:text-blue-600">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
                     <Wind size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold tracking-tight text-white print:text-gray-900 text-lg">Catálogo de Soluciones</h3>
-                    <p className="text-[10px] text-slate-400 print:text-gray-500 uppercase tracking-widest font-semibold">ÁREAS DE SERVICIO (PARTE I)</p>
+                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Soluciones Mecánicas</h3>
+                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold font-mono">PORTAFOLIO DE SERVICIOS · PARTE I</p>
                   </div>
                 </div>
-                <div className="text-right text-xs text-slate-400 print:text-gray-500 font-mono">
+                <div className="text-right text-xs text-slate-400 font-mono">
                   Dossier Institucional · Pág. 3
                 </div>
               </div>
 
-              {/* Services Grid (3 Columns) */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto py-2">
+              {/* Service block with an elegant 3-column service grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 my-auto py-2">
                 
-                {/* area 1: ductos */}
-                <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-800/60 flex flex-col justify-between h-full hover:border-slate-700 transition print:bg-gray-50 print:border-gray-200">
-                  <div className="space-y-4">
+                {/* Sector 1: Ductos */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 shadow-sm flex flex-col justify-between h-full hover:border-blue-300 transition-colors">
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono tracking-widest text-slate-400 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800 print:bg-white print:border-gray-200">SECTOR 01</span>
-                      <Wind size={18} className="text-secondary print:text-blue-500" />
+                      <span className="text-[9px] font-mono tracking-widest text-slate-500 font-bold bg-slate-200/50 px-2 py-0.5 rounded">ÁREA 01</span>
+                      <Wind size={16} className="text-blue-500" />
                     </div>
-                    <h4 className="font-extrabold text-sm text-white print:text-blue-900 uppercase">Fabricación e Instalación de Ductos</h4>
-                    <p className="text-[11px] text-slate-300 print:text-gray-600 leading-relaxed">
-                      Sistemas óptimos de conducción de aire para complejos hoteleros, comerciales e industriales.
-                    </p>
-                    <ul className="space-y-2 pt-2 text-[11px] text-slate-300 print:text-gray-700 font-medium">
-                      {['Fabricación de ductos galvanizados', 'Sistemas de ventilación y extracción', 'Instalación de aire acondicionado', 'Balanceo y distribución de aire', 'Mantenimiento y reparación'].map((item, index) => (
-                        <li key={index} className="flex items-start gap-1.5">
-                          <CheckCircle2 size={11} className="text-secondary mt-0.5 flex-shrink-0 print:text-blue-600" />
-                          <span>{item}</span>
+                    <div>
+                      <h4 className="font-bold text-xs text-slate-900 uppercase">Fabricación de Ductos</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5">Sistemas de conducción de aire galvanizados.</p>
+                    </div>
+
+                    {/* Miniature Curated image to make it eye-catching as requested */}
+                    <div className="h-16 w-full rounded overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80" 
+                        className="w-full h-full object-cover"
+                        alt="Ductos de Climatización"
+                      />
+                    </div>
+
+                    <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
+                      {['Ductos circulares y rectangulares', 'Sistemas de ventilación y extracción', 'Instalación de aire acondicionado', 'Balanceo técnico de distribución', 'Aislamiento térmico de conductos'].map((item, index) => (
+                        <li key={index} className="flex items-center gap-1">
+                          <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
+                          <span className="truncate">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                {/* area 3: HVAC General */}
-                <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-800/60 flex flex-col justify-between h-full hover:border-slate-700 transition print:bg-gray-50 print:border-gray-200">
-                  <div className="space-y-4">
+                {/* Sector 2: HVAC Climatización */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 shadow-sm flex flex-col justify-between h-full hover:border-blue-300 transition-colors">
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono tracking-widest text-slate-400 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800 print:bg-white print:border-gray-200">SECTOR 02</span>
-                      <Activity size={18} className="text-secondary print:text-blue-500" />
+                      <span className="text-[9px] font-mono tracking-widest text-slate-500 font-bold bg-slate-200/50 px-2 py-0.5 rounded">ÁREA 02</span>
+                      <Activity size={16} className="text-blue-500" />
                     </div>
-                    <h4 className="font-extrabold text-sm text-white print:text-blue-900 uppercase">HVAC en General (Climatización)</h4>
-                    <p className="text-[11px] text-slate-300 print:text-gray-600 leading-relaxed">
-                      Llevamos aire de calidad y temperatura controlada de forma eficiente y silenciosa.
-                    </p>
-                    <ul className="space-y-2 pt-2 text-[11px] text-slate-300 print:text-gray-700 font-medium">
-                      {['Instalación avanzada de sistemas HVAC', 'Mantenimiento preventivo y correctivo', 'Chillers enfriadores y sistemas VRF', 'Ventilación mecánica forzada', 'Automatización integral y controles'].map((item, index) => (
-                        <li key={index} className="flex items-start gap-1.5">
-                          <CheckCircle2 size={11} className="text-secondary mt-0.5 flex-shrink-0 print:text-blue-600" />
-                          <span>{item}</span>
+                    <div>
+                      <h4 className="font-bold text-xs text-slate-900 uppercase">HVAC & Climatización</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5">Control de temperatura y sanidad de aire.</p>
+                    </div>
+
+                    {/* Miniature image */}
+                    <div className="h-16 w-full rounded overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=400&q=80" 
+                        className="w-full h-full object-cover"
+                        alt="Instalaciones HVAC"
+                      />
+                    </div>
+
+                    <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
+                      {['Chillers enfriadores por agua y aire', 'Sistemas VRF volumen variable', 'Maniobras y ventilación mecánica', 'Sistemas de calefacción y calderas', 'Controles automáticos inteligentes'].map((item, index) => (
+                        <li key={index} className="flex items-center gap-1">
+                          <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
+                          <span className="truncate">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                {/* area 4: Representantes TRANE */}
-                <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-800/60 flex flex-col justify-between h-full hover:border-slate-700 transition print:bg-gray-50 print:border-gray-200">
-                  <div className="space-y-4">
+                {/* Sector 3: Trane */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 shadow-sm flex flex-col justify-between h-full hover:border-blue-300 transition-colors">
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono tracking-widest text-slate-400 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800 print:bg-white print:border-gray-200">SECTOR 03</span>
-                      <ShieldCheck size={18} className="text-secondary print:text-blue-500" />
+                      <span className="text-[9px] font-mono tracking-widest text-slate-500 font-bold bg-slate-200/50 px-2 py-0.5 rounded">ÁREA 03</span>
+                      <ShieldCheck size={16} className="text-blue-500" />
                     </div>
-                    <h4 className="font-extrabold text-sm text-white print:text-blue-900 uppercase">Alianza TRANE Autorizada</h4>
-                    <p className="text-[11px] text-slate-300 print:text-gray-600 leading-relaxed">
-                      Soporte de ingeniería directa y equipos mecánicos de clase mundial garantizados.
-                    </p>
-                    <ul className="space-y-2 pt-2 text-[11px] text-slate-300 print:text-gray-700 font-medium">
-                      {['Distribución y venta oficial de equipos TRANE', 'Instalación técnicamente certificada', 'Soporte y diseño de ingeniería directa', 'Servicio técnico y mantenimiento autorizado'].map((item, index) => (
-                        <li key={index} className="flex items-start gap-1.5">
-                          <CheckCircle2 size={11} className="text-secondary mt-0.5 flex-shrink-0 print:text-blue-600" />
-                          <span>{item}</span>
+                    <div>
+                      <h4 className="font-bold text-xs text-slate-900 uppercase">Equipos TRANE</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5">Distribución y soporte autorizado.</p>
+                    </div>
+
+                    {/* Miniature image of premium hotel climate setup */}
+                    <div className="h-16 w-full rounded overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=400&q=80" 
+                        className="w-full h-full object-cover"
+                        alt="Climatización Hotelera"
+                      />
+                    </div>
+
+                    <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
+                      {['Distribución oficial de la marca', 'Instalación certificada por ingenieros', 'Diagnóstico de eficiencia energética', 'Mantenimiento preventivo autorizado', 'Piezas y repuestos oficiales TRANE'].map((item, index) => (
+                        <li key={index} className="flex items-center gap-1">
+                          <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
+                          <span className="truncate">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -464,95 +496,125 @@ export const CorporatePresentation = () => {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-slate-900 pt-4 flex justify-between items-center text-xs text-slate-500 print:border-gray-150 print:text-gray-400 font-mono">
-                <div>didusasrl.com · Ingeniería Electromecánica en República Dominicana</div>
-                <div>Garantía y Confiabilidad</div>
+              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
+                <div>Av. Barceló, Res. Sol Bavaro, Punta Cana · RD</div>
+                <div>Ingeniería Autorizada con Estándar Internacional</div>
               </div>
             </div>
           )}
 
           {/* SLIDE 4: PORTAFOLIO PARTE 2 (FONTANERIA, PLANOS ELECTROMECANICOS, MANTENIMIENTO) */}
           {(viewMode === 'all' || activeSlide === 3) && (
-            <div className="print-slide landscape-slide-frame bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl p-12 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300 text-slate-100">
+            <div className="print-slide landscape-slide-frame bg-white border border-slate-200 shadow-2xl rounded-2xl p-10 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300 text-slate-800">
               {/* Header */}
-              <div className="flex justify-between items-center pb-4 border-b border-slate-800/80 print:border-gray-200">
+              <div className="flex justify-between items-center pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-slate-900 text-secondary rounded-lg print:bg-blue-50 print:text-blue-600">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
                     <Compass size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold tracking-tight text-white print:text-gray-900 text-lg">Estructuras e Ingeniería</h3>
-                    <p className="text-[10px] text-slate-400 print:text-gray-500 uppercase tracking-widest font-semibold">ÁREAS DE SERVICIO (PARTE II)</p>
+                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Ingeniería & Flujo</h3>
+                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold font-mono">PORTAFOLIO DE SERVICIOS · PARTE II</p>
                   </div>
                 </div>
-                <div className="text-right text-xs text-slate-400 print:text-gray-500 font-mono">
+                <div className="text-right text-xs text-slate-400 font-mono">
                   Dossier Institucional · Pág. 4
                 </div>
               </div>
 
               {/* Services Grid (3 Columns) */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto py-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 my-auto py-2">
                 
-                {/* area 2: fontaneria */}
-                <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-800/60 flex flex-col justify-between h-full hover:border-slate-700 transition print:bg-gray-50 print:border-gray-200">
-                  <div className="space-y-4">
+                {/* Sector 4: Fontanería */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 shadow-sm flex flex-col justify-between h-full hover:border-blue-300 transition-colors">
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono tracking-widest text-slate-400 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800 print:bg-white print:border-gray-200">SECTOR 04</span>
-                      <Droplet size={18} className="text-secondary print:text-blue-500" />
+                      <span className="text-[9px] font-mono tracking-widest text-slate-500 font-bold bg-slate-200/50 px-2 py-0.5 rounded">ÁREA 04</span>
+                      <Droplet size={16} className="text-blue-500" />
                     </div>
-                    <h4 className="font-extrabold text-sm text-white print:text-blue-900 uppercase">Fontanería y Redes Hidráulicas</h4>
-                    <p className="text-[11px] text-slate-300 print:text-gray-600 leading-relaxed">
-                      Sistemas confiables de transporte de fluidos, aguas heladas y redes sanitarias técnicas.
-                    </p>
-                    <ul className="space-y-2 pt-2 text-[11px] text-slate-300 print:text-gray-700 font-medium">
-                      {['Distribución de agua fría y caliente', 'Líneas e impulsiones de aguas heladas', 'Redes de desagües sanitarias e hidráulicas', 'Montaje de bombas y tanques presurizados', 'Reparaciones mayores y correctivo'].map((item, index) => (
-                        <li key={index} className="flex items-start gap-1.5">
-                          <CheckCircle2 size={11} className="text-secondary mt-0.5 flex-shrink-0 print:text-blue-600" />
-                          <span>{item}</span>
+                    <div>
+                      <h4 className="font-bold text-xs text-slate-900 uppercase">Fontanería General</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5">Redes sanitarias e impulsiones hidráulicas.</p>
+                    </div>
+
+                    {/* Miniature image */}
+                    <div className="h-16 w-full rounded overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" 
+                        className="w-full h-full object-cover"
+                        alt="Tuberías y Fontanería"
+                      />
+                    </div>
+
+                    <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
+                      {['Sistemas de agua fría y caliente', 'Distribución de aguas heladas', 'Redes de desagües cloacales', 'Instalación de bombas principales', 'Sistemas hidroneumáticos presurizados'].map((item, index) => (
+                        <li key={index} className="flex items-center gap-1">
+                          <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
+                          <span className="truncate">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                {/* area 5: planos y diseño */}
-                <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-800/60 flex flex-col justify-between h-full hover:border-slate-700 transition print:bg-gray-50 print:border-gray-200">
-                  <div className="space-y-4">
+                {/* Sector 5: Planos */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 shadow-sm flex flex-col justify-between h-full hover:border-blue-300 transition-colors">
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono tracking-widest text-slate-400 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800 print:bg-white print:border-gray-200">SECTOR 05</span>
-                      <FileText size={18} className="text-secondary print:text-blue-500" />
+                      <span className="text-[9px] font-mono tracking-widest text-slate-500 font-bold bg-slate-200/50 px-2 py-0.5 rounded">ÁREA 05</span>
+                      <FileText size={16} className="text-blue-500" />
                     </div>
-                    <h4 className="font-extrabold text-sm text-white print:text-blue-900 uppercase">Diseño de Planos y Supervisión</h4>
-                    <p className="text-[11px] text-slate-300 print:text-gray-600 leading-relaxed">
-                      Planificación rigurosa de planos electromecánicos e hidráulicos utilizando CAD/BIM de vanguardia.
-                    </p>
-                    <ul className="space-y-2 pt-2 text-[11px] text-slate-300 print:text-gray-700 font-medium">
-                      {['Planos técnicos electromecánicos completos', 'Planos de climatización e instalación HVAC', 'Sistemas de distribución sanitarios complex', 'Cómputos e ingeniería aplicada de ductos', 'Supervisión técnica de obras presencial'].map((item, index) => (
-                        <li key={index} className="flex items-start gap-1.5">
-                          <CheckCircle2 size={11} className="text-secondary mt-0.5 flex-shrink-0 print:text-blue-600" />
-                          <span>{item}</span>
+                    <div>
+                      <h4 className="font-bold text-xs text-slate-900 uppercase">Diseño de Planos</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5 font-sans">Planos electromecánicos certificados.</p>
+                    </div>
+
+                    {/* Miniature image (BIM CAD design plans) */}
+                    <div className="h-16 w-full rounded overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" 
+                        className="w-full h-full object-cover"
+                        alt="Dibujo Técnico Planos"
+                      />
+                    </div>
+
+                    <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
+                      {['Diseños y diagramación de ductos', 'Ingeniería hidráulica y de fluidos', 'Planos de cableado y fuerza', 'Supervisión técnica de obras', 'Asesoramiento de proyectos constructores'].map((item, index) => (
+                        <li key={index} className="flex items-center gap-1">
+                          <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
+                          <span className="truncate">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                {/* area 6: Mantenimiento general */}
-                <div className="bg-slate-900/50 p-5 rounded-xl border border-slate-800/60 flex flex-col justify-between h-full hover:border-slate-700 transition print:bg-gray-50 print:border-gray-200">
-                  <div className="space-y-4">
+                {/* Sector 6: Mantenimiento */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 shadow-sm flex flex-col justify-between h-full hover:border-blue-300 transition-colors">
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono tracking-widest text-slate-400 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800 print:bg-white print:border-gray-200">SECTOR 06</span>
-                      <Wrench size={18} className="text-secondary print:text-blue-500" />
+                      <span className="text-[9px] font-mono tracking-widest text-slate-500 font-bold bg-slate-200/50 px-2 py-0.5 rounded">ÁREA 06</span>
+                      <Wrench size={16} className="text-blue-500" />
                     </div>
-                    <h4 className="font-extrabold text-sm text-white print:text-blue-900 uppercase">Mantenimiento Preventivo</h4>
-                    <p className="text-[11px] text-slate-300 print:text-gray-600 leading-relaxed">
-                      Programas diseñados para salvaguardar la durabilidad de sus activos electromecánicos e instalaciones.
-                    </p>
-                    <ul className="space-y-2 pt-2 text-[11px] text-slate-300 print:text-gray-700 font-medium">
-                      {['Contratos recurrentes preventivos', 'Soporte inmediato de mantenimiento correctivo', 'Auditorías e inspecciones técnicas integrales', 'Limpieza y descontaminación industrial', 'Control operativo empresarial regular'].map((item, index) => (
-                        <li key={index} className="flex items-start gap-1.5">
-                          <CheckCircle2 size={11} className="text-secondary mt-0.5 flex-shrink-0 print:text-blue-600" />
-                          <span>{item}</span>
+                    <div>
+                      <h4 className="font-bold text-xs text-slate-900 uppercase">Mantenimiento General</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5">Preservando el rendimiento operativo.</p>
+                    </div>
+
+                    {/* Miniature image */}
+                    <div className="h-16 w-full rounded overflow-hidden">
+                      <img 
+                        src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=400&q=80" 
+                        className="w-full h-full object-cover"
+                        alt="Inspección Mantenimiento"
+                      />
+                    </div>
+
+                    <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
+                      {['Contratos preventivos periódicos', 'Mantenimiento correctivo de emergencia', 'Inspecciones termográficas técnicas', 'Limpieza profunda de serpentines', 'Optimización de consumo energético'].map((item, index) => (
+                        <li key={index} className="flex items-center gap-1">
+                          <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
+                          <span className="truncate">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -562,8 +624,8 @@ export const CorporatePresentation = () => {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-slate-900 pt-4 flex justify-between items-center text-xs text-slate-500 print:border-gray-150 print:text-gray-400 font-mono">
-                <div>didusasrl.com · Soporte de Ingeniería Integrada de Clase Mundial</div>
+              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
+                <div>Proyectos con Calidad Certificada · DIDUSA SRL</div>
                 <div>Garantía PostVenta</div>
               </div>
             </div>
@@ -571,78 +633,87 @@ export const CorporatePresentation = () => {
 
           {/* SLIDE 5: CLIENTES, SECTORES & CONCLUSION */}
           {(viewMode === 'all' || activeSlide === 4) && (
-            <div className="print-slide landscape-slide-frame bg-slate-950 border border-slate-800 shadow-2xl rounded-2xl p-12 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300 text-slate-100">
+            <div className="print-slide landscape-slide-frame bg-white border border-slate-200 shadow-2xl rounded-2xl p-10 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300 text-slate-800">
               {/* Header */}
-              <div className="flex justify-between items-center pb-4 border-b border-slate-800/80 print:border-gray-200">
+              <div className="flex justify-between items-center pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-slate-900 text-secondary rounded-lg print:bg-blue-50 print:text-blue-600">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
                     <Globe size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold tracking-tight text-white print:text-gray-900 text-lg">Clientes, Sectores y Conclusión</h3>
-                    <p className="text-[10px] text-slate-400 print:text-gray-500 uppercase tracking-widest font-semibold">Alcance y Compromiso Técnico</p>
+                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Sectores y Contacto</h3>
+                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold font-mono">Resumen Administrativo</p>
                   </div>
                 </div>
-                <div className="text-right text-xs text-slate-400 print:text-gray-500 font-mono">
+                <div className="text-right text-xs text-slate-400 font-mono">
                   Dossier Institucional · Pág. 5
                 </div>
               </div>
 
               {/* Grid Content */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto py-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto py-2 items-center">
                 
                 {/* Clientes y Sectores */}
                 <div className="space-y-4">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-secondary print:text-blue-600 font-mono">Sectores Clave que Atendemos</h4>
-                  <p className="text-xs text-slate-300 print:text-gray-700 leading-relaxed md:max-w-md">
-                    Nuestras soluciones escalables están adaptadas a las normativas de seguridad y los rigurosos estándares técnicos requeridos por diferentes renglones de la industria:
-                  </p>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600">Alcance de Operación</span>
+                    <h4 className="text-lg font-bold text-slate-900 mt-0.5">Sectores que Confían en Nosotros</h4>
+                  </div>
                   
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {[
-                      'Constructoras', 'Hoteles', 'Hospitales', 'Industrias', 
-                      'Restaurantes', 'Centros comerciales', 'Oficinas corporativas', 'Sectores residenciales'
+                      'Constructoras', 'Complejos Hoteleros', 'Hospitales & Clínicas', 'Fábricas e Industrias', 
+                      'Gastro & Restaurantes', 'Centros Comerciales', 'Oficinas Corporativas', 'Obras Residenciales'
                     ].map((sector, index) => (
-                      <div key={index} className="flex items-center gap-2 p-1.5 rounded bg-slate-900/60 border border-slate-800/80 print:bg-gray-50 print:border-gray-200 print:text-gray-900 font-medium">
-                        <span className="h-2 w-2 rounded-full bg-secondary print:bg-blue-600" />
-                        <span>{sector}</span>
+                      <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-700 font-semibold shadow-xs">
+                        <span className="h-2 w-2 rounded-full bg-blue-600 flex-shrink-0" />
+                        <span className="truncate">{sector}</span>
                       </div>
                     ))}
                   </div>
+                  
+                  <p className="text-xs text-slate-500 italic max-w-sm">
+                    "Todas nuestras instalaciones cumplen estrictamente con los lineamientos ASHRAE e internacionales de seguridad e impacto ambiental."
+                  </p>
                 </div>
 
                 {/* Conclusion & Contact Information */}
                 <div className="space-y-4 flex flex-col justify-between">
-                  <div className="bg-slate-900/40 p-5 rounded-2xl border border-slate-800/60 print:bg-gray-50 print:border-gray-200">
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 print:text-gray-900 font-mono mb-2">Conclusiones de la Empresa</h4>
-                    <p className="text-xs text-slate-300 print:text-gray-800 leading-relaxed italic">
-                      "Ofrecemos soluciones verdaderamente completas en las áreas de climatización, HVAC, fontanería, ductería, diseño electromecánico y mantenimiento general, garantizando calidad superior, eficiencia energética insuperable y respaldo técnico en cada entrega."
+                  <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                    <h4 className="text-[10px] font-bold uppercase tracking-widest text-blue-800 font-mono mb-1">Garantía DIDUSA</h4>
+                    <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                      Ofrecemos soluciones verdaderamente integrales con ingeniería de primer nivel para toda la República Dominicana. Nuestro enfoque se centra en el ahorro energético, confort y flujo óptimo.
                     </p>
                   </div>
 
                   {/* Direct details formatted for printable sheet */}
-                  <div className="bg-gradient-to-r from-slate-900 to-slate-950 p-4 rounded-xl border border-slate-800 print:from-white print:to-white print:border-gray-300 grid grid-cols-2 gap-3 text-[11px]">
-                    <div className="space-y-1">
-                      <div className="text-slate-400 print:text-gray-500 font-semibold uppercase tracking-wider text-[9px]">Sede Central</div>
-                      <div className="font-bold text-white print:text-gray-900 flex items-center gap-1">
-                        <MapPin size={10} className="text-secondary print:text-blue-600" /> Santo Domingo, RD
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-2 gap-3 text-xs">
+                    <div className="space-y-0.5">
+                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Sede Central</div>
+                      <div className="font-extrabold text-slate-900 flex items-center gap-1">
+                        <MapPin size={12} className="text-blue-600 flex-shrink-0" /> Punta Cana, Rep. Dom.
+                      </div>
+                      <div className="text-[9px] text-slate-500 font-medium">Residencial Sol Bavaro, Av. Barceló</div>
+                    </div>
+                    
+                    <div className="space-y-0.5">
+                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Ingeniero a Cargo</div>
+                      <div className="font-extrabold text-slate-900 flex items-center gap-0.5 truncate">
+                        <Mail size={12} className="text-blue-600 flex-shrink-0" /> fferreras
+                      </div>
+                      <div className="text-[9px] text-slate-500 italic">fferreras@didusa.onmicrosoft.com</div>
+                    </div>
+
+                    <div className="space-y-0.5">
+                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Contactos Oficiales</div>
+                      <div className="font-extrabold text-slate-900 flex items-center gap-1">
+                        <Phone size={11} className="text-blue-600" /> {MAIN_PHONE}
                       </div>
                     </div>
-                    <div className="space-y-1">
-                      <div className="text-slate-400 print:text-gray-500 font-semibold uppercase tracking-wider text-[9px]">Ingeniero de Enlace</div>
-                      <div className="font-bold text-white print:text-gray-900 flex items-center gap-1 flex-wrap break-all">
-                        <Mail size={10} className="text-secondary print:text-blue-600 flex-shrink-0" /> fferreras@didusa.onmicrosoft.com
-                      </div>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-slate-400 print:text-gray-500 font-semibold uppercase tracking-wider text-[9px]">Teléfonos Directos</div>
-                      <div className="font-bold text-white print:text-gray-900 flex items-center gap-1">
-                        <Phone size={10} className="text-secondary print:text-blue-600" /> +1 (829) 208-8107
-                      </div>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-slate-400 print:text-gray-500 font-semibold uppercase tracking-wider text-[9px]">Línea de Whatsapp</div>
-                      <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="font-bold text-whatsapp hover:underline flex items-center gap-1">
+
+                    <div className="space-y-0.5">
+                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Canal de WhatsApp</div>
+                      <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="font-extrabold text-emerald-600 hover:underline flex items-center gap-1">
                         <span>💬 +1 (829) 208-8107</span>
                       </a>
                     </div>
@@ -653,9 +724,9 @@ export const CorporatePresentation = () => {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-slate-900 pt-4 flex justify-between items-center text-xs text-slate-500 print:border-gray-150 print:text-gray-400 font-mono">
-                <div>didusasrl.com · Excelencia en Ingeniería Mecánica 2026</div>
-                <div>Santo Domingo, RD</div>
+              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
+                <div>didusasrl.com · Excelencia en Climatización & Ductería 2026</div>
+                <div>Punta Cana, RD</div>
               </div>
             </div>
           )}
@@ -664,17 +735,17 @@ export const CorporatePresentation = () => {
 
         {/* BOTTOM NAVIGATION IN SLIDESHOW MODE ENCOURAGING ACTION */}
         {viewMode === 'slide' && (
-          <div className="no-print mt-6 flex items-center gap-3">
+          <div className="no-print mt-5 flex items-center gap-2">
             {Array.from({ length: slidesCount }).map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveSlide(idx)}
                 className={`h-2.5 rounded-full transition-all duration-300 ${
                   activeSlide === idx 
-                    ? 'w-8 bg-secondary' 
-                    : 'w-2.5 bg-slate-700 hover:bg-slate-500'
+                    ? 'w-8 bg-blue-600' 
+                    : 'w-2.5 bg-slate-300 hover:bg-slate-400'
                 }`}
-                title={`Ir a Diapositiva ${idx + 1}`}
+                title={`Ir a la Página ${idx + 1}`}
               />
             ))}
           </div>

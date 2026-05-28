@@ -177,8 +177,8 @@ export const ContactPageLogic = () => {
                                         <MapPin className="text-primary mr-3 flex-shrink-0 mt-0.5" size={18} />
                                         <div>
                                             <p className="font-semibold text-dark">Sede Central</p>
-                                            <p>Santo Domingo, República Dominicana</p>
-                                            <p className="text-xs text-gray-400">Servicio a nivel nacional</p>
+                                            <p>Residencial Sol Bavaro, Av. Barceló, Punta Cana, República Dominicana</p>
+                                            <p className="text-xs text-gray-400">Servicio a nivel nacional e internacional</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start">

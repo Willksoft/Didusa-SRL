@@ -211,7 +211,7 @@ export const Footer = () => {
               <div className="text-base text-white font-bold mb-2">+1 (809) 662-8574</div>
               <div className="flex items-start space-x-2 text-xs text-gray-400">
                  <MapPin className="flex-shrink-0 text-blue-500 mt-0.5" size={14} />
-                 <span>Santo Domingo, República Dominicana</span>
+                 <span>Residencial Sol Bavaro, Av. Barceló, Punta Cana, Rep. Dom.</span>
               </div>
             </div>
 

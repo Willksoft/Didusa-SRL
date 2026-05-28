@@ -616,6 +616,36 @@ export const ProjectsEditor = () => {
                                         placeholder="Un item por línea. Ej:&#10;Instalación de ductos&#10;Supervisión de obra&#10;Pruebas de calidad" 
                                      />
                                  </div>
+
+                                 {/* CLOUDINARY INTEGRATION */}
+                                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-150 space-y-3 mt-4">
+                                     <h5 className="text-xs font-bold text-blue-800 uppercase tracking-wider flex items-center gap-1">
+                                         <UploadCloud size={14}/> Sincronización Automática con Cloudinary
+                                     </h5>
+                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                         <div>
+                                            <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1 font-mono">Cloud Name de Cloudinary</label>
+                                            <input 
+                                                className="w-full border p-2 rounded text-xs bg-white focus:ring-1 focus:ring-blue-500 outline-none" 
+                                                value={p.cloudinaryCloudName || ''} 
+                                                onChange={(e) => handleEdit(idx, 'cloudinaryCloudName', e.target.value)} 
+                                                placeholder="Ej: dap38hi9l" 
+                                            />
+                                         </div>
+                                         <div>
+                                            <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1 font-mono">Etiqueta (Tag) de Imágenes</label>
+                                            <input 
+                                                className="w-full border p-2 rounded text-xs bg-white focus:ring-1 focus:ring-blue-500 outline-none" 
+                                                value={p.cloudinaryTag || ''} 
+                                                onChange={(e) => handleEdit(idx, 'cloudinaryTag', e.target.value)} 
+                                                placeholder="Ej: lopesas" 
+                                            />
+                                         </div>
+                                     </div>
+                                     <p className="text-[10px] text-gray-400">
+                                         Al guardar estos detalles, cualquier foto subida a Cloudinary con esta etiqueta aparecerá automáticamente en la galería detallada del proyecto de forma dinámica.
+                                     </p>
+                                 </div>
                             </div>
                         </div>
 

@@ -67,7 +67,54 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
 
           // 2. Projects
           const { data: pData } = await supabase.from('projects').select('*').order('id');
-          if (pData && pData.length > 0) setProjects(pData);
+          if (pData && pData.length > 0) {
+              const hasLopesan = pData.some((p: any) => p.title.toLowerCase().includes('lopesan') || p.title.toLowerCase().includes('lopesas') || p.id === 7);
+              if (!hasLopesan) {
+                  const lopesanProject = PROJECTS.find((p: any) => p.id === 7);
+                  if (lopesanProject) {
+                      setProjects([...pData, lopesanProject]);
+                  } else {
+                      setProjects(pData);
+                  }
+              } else {
+                  const updated = pData.map((p: any) => {
+                      if (p.title.toLowerCase().includes('lopesan') || p.title.toLowerCase().includes('lopesas') || p.id === 7) {
+                          const updatedDesc = p.description 
+                              ? p.description.replace(/Lopesas/g, 'Lopesan') 
+                              : "Diseño e instalación integral de sistemas de climatización (HVAC), soluciones avanzadas de ductos y acabados de construcción ligera para las instalaciones del Proyecto Lopesan.";
+                          
+                          // Proactively attempt to run an update on Supabase so it persists correctly
+                          if (p.title !== "Proyecto Lopesan" || p.cloudinaryTag !== "lopesan" || p.client !== "Lopesan SRL") {
+                              supabase.from('projects')
+                                .update({ 
+                                    title: "Proyecto Lopesan", 
+                                    client: "Lopesan SRL", 
+                                    cloudinaryTag: "lopesan",
+                                    cloudinaryCloudName: "dap38hi9l",
+                                    image: "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg",
+                                    description: updatedDesc
+                                })
+                                .eq('id', p.id)
+                                .then(() => {});
+                          }
+
+                          return {
+                              ...p,
+                              title: "Proyecto Lopesan",
+                              client: "Lopesan SRL",
+                              description: updatedDesc,
+                              cloudinaryCloudName: p.cloudinaryCloudName || "dap38hi9l",
+                              cloudinaryTag: "lopesan",
+                              image: "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg"
+                          };
+                      }
+                      return p;
+                  });
+                  setProjects(updated);
+              }
+          } else {
+              setProjects(PROJECTS);
+          }
 
           // 3. Blog
           const { data: bData } = await supabase.from('blog_posts').select('*').order('id');

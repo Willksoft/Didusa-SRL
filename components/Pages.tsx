@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Calendar, User, CheckCircle2, Play, Image as ImageIcon, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar, User, CheckCircle2, Play, Image as ImageIcon, X, ChevronLeft, ChevronRight, Info, Sliders, FolderOpen } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { PageHeader, AboutPageLogic, ServicesPageLogic, ProjectsPageLogic, ContactPageLogic } from './PublicPages';
 import { BottomBanner } from './Sections';
@@ -19,6 +19,9 @@ export const ProjectDetailPage = () => {
     const { id } = useParams();
     const { projects } = useData();
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+    const [cloudinaryImages, setCloudinaryImages] = useState<{ type: 'image' | 'video'; url: string; caption?: string }[]>([]);
+    const [loadingCloudinary, setLoadingCloudinary] = useState(false);
+    const [cloudinaryError, setCloudinaryError] = useState<boolean>(false);
     const project = projects.find(p => p.id === Number(id));
 
     // Reset lightbox when project changes
@@ -38,9 +41,73 @@ export const ProjectDetailPage = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [lightboxIndex]);
 
+    // Fetch dynamic Cloudinary images if cloudinaryTag and cloudinaryCloudName are specified
+    useEffect(() => {
+        if (!project || !project.cloudinaryCloudName || !project.cloudinaryTag) {
+            setCloudinaryImages([]);
+            setCloudinaryError(false);
+            return;
+        }
+
+        const fetchImages = async () => {
+            setLoadingCloudinary(true);
+            setCloudinaryError(false);
+            
+            // Try different candidate tags in sequence
+            const tagsToTry = [
+                project.cloudinaryTag,
+                project.cloudinaryTag.toLowerCase(),
+                "lopesan",
+                "lopesas",
+                "proyecto-lopesan",
+                "proyecto_lopesan"
+            ];
+            const uniqueTags = Array.from(new Set(tagsToTry.filter(Boolean)));
+            
+            let loadedImages: { type: 'image'; url: string; caption: string }[] = [];
+            let success = false;
+
+            for (const tag of uniqueTags) {
+                try {
+                    const url = `https://res.cloudinary.com/${project.cloudinaryCloudName}/image/list/${tag}.json`;
+                    const res = await fetch(url);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && data.resources && data.resources.length > 0) {
+                            loadedImages = data.resources.map((r: any) => ({
+                                type: 'image' as const,
+                                url: `https://res.cloudinary.com/${project.cloudinaryCloudName}/image/upload/v${r.version}/${r.public_id}.${r.format}`,
+                                caption: r.context?.custom?.caption || `${project.title} - Detalle`
+                            }));
+                            success = true;
+                            break; // Stop at first successful tag load
+                        }
+                    }
+                } catch (err) {
+                    console.warn(`Could not load Cloudinary tag "${tag}":`, err);
+                }
+            }
+
+            if (success && loadedImages.length > 0) {
+                setCloudinaryImages(loadedImages);
+                setCloudinaryError(false);
+            } else {
+                setCloudinaryImages([]);
+                setCloudinaryError(true);
+            }
+            setLoadingCloudinary(false);
+        };
+
+        fetchImages();
+    }, [project?.cloudinaryCloudName, project?.cloudinaryTag]);
+
     if (!project) return <div className="py-40 text-center">Proyecto no encontrado</div>;
 
-    const gallery = project.gallery || [];
+    // Combine static gallery with dynamically fetched Cloudinary images (ignoring duplicates)
+    const baseGallery = project.gallery || [];
+    const galleryUrls = new Set(baseGallery.map(item => item.url));
+    const uniqueCloudinaryImages = cloudinaryImages.filter(item => !galleryUrls.has(item.url));
+    const gallery = [...baseGallery, ...uniqueCloudinaryImages];
     
     // Logic for related projects (show 3 projects that are NOT the current one)
     const relatedProjects = projects.filter(p => p.id !== project.id).slice(0, 3);
@@ -163,6 +230,8 @@ export const ProjectDetailPage = () => {
                                 </div>
                             </div>
                         )}
+
+
 
                     </div>
                     <div className="lg:w-1/3">

@@ -62,6 +62,8 @@ export interface Project {
   client?: string;
   location?: string;
   scope?: string[]; // Array of strings for "Alcance del trabajo"
+  cloudinaryTag?: string;
+  cloudinaryCloudName?: string;
 }
 
 export interface Brand {

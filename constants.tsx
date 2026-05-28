@@ -307,5 +307,29 @@ export const PROJECTS: Project[] = [
     title: "Hospital General Regional",
     category: "Sistemas Contra Incendios",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    id: 7,
+    title: "Proyecto Lopesan",
+    category: "Climatización y Construcción",
+    image: "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg",
+    client: "Lopesan SRL",
+    location: "República Dominicana",
+    description: "Diseño e instalación integral de sistemas de climatización (HVAC), soluciones avanzadas de ductos y acabados de construcción ligera para las instalaciones del Proyecto Lopesan. Utilizando estándares técnicos del más alto nivel con soporte de ingeniería de clase mundial.",
+    scope: [
+      "Diseño y trazo de conductos HVAC de alto flujo",
+      "Sistemas de climatización e inyección de aire fresco",
+      "Terminaciones de plafones y enchaquetados de protección",
+      "Control acústico de vibración en unidades manejadoras"
+    ],
+    cloudinaryCloudName: "dap38hi9l",
+    cloudinaryTag: "lopesan",
+    gallery: [
+      {
+        type: "image",
+        url: "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg",
+        caption: "Lopesan Costa Bávaro - Vista General"
+      }
+    ]
   }
 ];

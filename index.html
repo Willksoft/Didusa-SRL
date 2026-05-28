@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags Base -->
+    <title>Didusa SRL - Ductos, Climatización y Construcción en RD</title>
+    <meta name="description" content="Didusa SRL: Líderes en República Dominicana en diseño e instalación de ductos, climatización (HVAC), aislamiento térmico y sheetrock. Contacto: +1 (829) 208-8107." />
+    <meta name="keywords" content="Didusa, Ductos, HVAC, Aire Acondicionado, Aislamiento Térmico, República Dominicana, Construcción, Sheetrock, Fontanería, Santo Domingo, Punta Cana, Hoteles" />
+    <meta name="author" content="Didusa SRL" />
+    <meta name="theme-color" content="#0056b3" />
+    <link rel="canonical" href="https://www.didusasrl.com/" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.didusasrl.com/" />
+    <meta property="og:title" content="Didusa SRL - Soluciones Integrales HVAC y Construcción" />
+    <meta property="og:description" content="Especialistas en sistemas de ductos, aire acondicionado y acabados técnicos para grandes proyectos en RD." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1200" />
+    <meta property="og:site_name" content="Didusa SRL" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.didusasrl.com/" />
+    <meta property="twitter:title" content="Didusa SRL - Expertos en Climatización" />
+    <meta property="twitter:description" content="Ingeniería de ductos y construcción ligera de clase mundial en República Dominicana." />
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1200" />
+
+    <!-- Favicon (SVG Data URI) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 30'%3E%3Cpath d='M5,15 Q15,5 25,15 T45,15' fill='none' stroke='%230056b3' stroke-width='4' /%3E%3Cpath d='M5,22 Q15,12 25,22 T45,22' fill='none' stroke='%2300a8e8' stroke-width='4' opacity='0.8' /%3E%3C/svg%3E" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              primary: '#0056b3', // Blue specific to construction/professional
+              secondary: '#00a8e8', // Lighter blue
+              whatsapp: '#25D366', // Official WhatsApp Green
+              whatsappDark: '#128C7E',
+              dark: '#1a1a1a', // Almost black
+            },
+            animation: {
+              marquee: 'marquee 25s linear infinite',
+              marquee2: 'marquee2 25s linear infinite',
+              fadeInUp: 'fadeInUp 1s ease-out forwards',
+              fadeInDown: 'fadeInDown 1s ease-out forwards',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              marquee2: {
+                '0%': { transform: 'translateX(100%)' },
+                '100%': { transform: 'translateX(0%)' },
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeInDown: {
+                '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            },
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Smooth scrolling for anchor links */
+      html {
+        scroll-behavior: smooth;
+      }
+      .hero-gradient {
+        background: linear-gradient(rgba(0, 86, 179, 0.4), rgba(26, 26, 26, 0.6));
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "lucide-react": "https://esm.sh/lucide-react@0.263.1",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.14.2?deps=react@18.2.0,react-dom@18.2.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+    <script>
+      // Service Worker Registration for PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

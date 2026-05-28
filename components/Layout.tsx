@@ -179,6 +179,7 @@ export const Footer = () => {
               <li><Link to="/projects" className="hover:text-blue-400 transition">Proyectos</Link></li>
               <li><Link to="/blog" className="hover:text-blue-400 transition">Noticias</Link></li>
               <li><Link to="/contact" className="hover:text-blue-400 transition">Contacto</Link></li>
+              <li className="pt-1"><Link to="/presentation" className="text-secondary hover:text-white font-bold transition flex items-center gap-1.5">🖨️ Dossier Corporativo</Link></li>
             </ul>
           </div>
 

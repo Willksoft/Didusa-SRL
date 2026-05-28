@@ -16,6 +16,7 @@ import {
   BlogPostPage, 
   ContactPage 
 } from './components/Pages';
+import { CorporatePresentation } from './components/CorporatePresentation';
 import { supabase } from './supabaseClient';
 import { Loader2 } from 'lucide-react';
 
@@ -128,6 +129,10 @@ const AppContent = () => {
                 <Route path="/blog" element={<LayoutWrapper><BlogPage /></LayoutWrapper>} />
                 <Route path="/blog/:id" element={<LayoutWrapper><BlogPostPage /></LayoutWrapper>} />
                 <Route path="/contact" element={<LayoutWrapper><ContactPage /></LayoutWrapper>} />
+                
+                {/* Presentation Dossier (Without Navbar/Footer) */}
+                <Route path="/presentation" element={<CorporatePresentation />} />
+                <Route path="/dossier" element={<CorporatePresentation />} />
 
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>

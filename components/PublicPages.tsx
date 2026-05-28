@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Check, MapPin, Briefcase, Phone } from 'lucide-react';
 import { useData } from '../context/DataContext';
+import { slugify } from '../utils';
 import { Reveal } from './Reveal';
 import { AboutSection, WhyChooseUsSection } from './Features';
 import { CtaBanner, BottomBanner, MapSection, StatsSection } from './Sections';
@@ -128,7 +129,7 @@ export const ProjectsPageLogic = () => {
           <div className="container mx-auto px-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {projects.map((p) => (
-                      <Link to={`/projects/${p.id}`} key={p.id} className="group block shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition duration-300">
+                      <Link to={`/projects/${slugify(p.title)}`} key={p.id} className="group block shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition duration-300">
                           <div className="h-64 overflow-hidden relative">
                               <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
                               <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded">{p.category}</div>

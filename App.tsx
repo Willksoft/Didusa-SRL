@@ -124,7 +124,7 @@ const AppContent = () => {
                 <Route path="/about" element={<LayoutWrapper><AboutPage /></LayoutWrapper>} />
                 <Route path="/services" element={<LayoutWrapper><ServicesPage /></LayoutWrapper>} />
                 <Route path="/projects" element={<LayoutWrapper><ProjectsPage /></LayoutWrapper>} />
-                <Route path="/projects/:id" element={<LayoutWrapper><ProjectDetailPage /></LayoutWrapper>} />
+                <Route path="/projects/:slug" element={<LayoutWrapper><ProjectDetailPage /></LayoutWrapper>} />
                 <Route path="/blog" element={<LayoutWrapper><BlogPage /></LayoutWrapper>} />
                 <Route path="/blog/:id" element={<LayoutWrapper><BlogPostPage /></LayoutWrapper>} />
                 <Route path="/contact" element={<LayoutWrapper><ContactPage /></LayoutWrapper>} />

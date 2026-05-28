@@ -6,6 +6,8 @@ import { useData } from '../context/DataContext';
 import { PageHeader, AboutPageLogic, ServicesPageLogic, ProjectsPageLogic, ContactPageLogic } from './PublicPages';
 import { BottomBanner } from './Sections';
 import { WHATSAPP_LINK } from '../constants';
+import { SEO } from './SEO';
+import { slugify } from '../utils';
 
 // --- EXPORTED PAGES FROM MODULE ---
 export const AboutPage = AboutPageLogic;
@@ -16,18 +18,23 @@ export const ContactPage = ContactPageLogic;
 // --- DETAIL PAGES KEPT HERE FOR SIMPLICITY ---
 
 export const ProjectDetailPage = () => {
-    const { id } = useParams();
+    const { slug, id } = useParams();
     const { projects } = useData();
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
     const [cloudinaryImages, setCloudinaryImages] = useState<{ type: 'image' | 'video'; url: string; caption?: string }[]>([]);
     const [loadingCloudinary, setLoadingCloudinary] = useState(false);
     const [cloudinaryError, setCloudinaryError] = useState<boolean>(false);
-    const project = projects.find(p => p.id === Number(id));
+    
+    const urlParam = slug || id;
+    const project = projects.find(p => {
+        if (!p) return false;
+        return slugify(p.title) === urlParam || p.id?.toString() === urlParam;
+    });
 
     // Reset lightbox when project changes
     useEffect(() => {
         setLightboxIndex(null);
-    }, [id]);
+    }, [urlParam]);
 
     // Keyboard navigation for lightbox
     useEffect(() => {
@@ -134,6 +141,12 @@ export const ProjectDetailPage = () => {
 
     return (
         <>
+            <SEO 
+                title={project.title} 
+                description={project.description || `Detalles técnicos y fotos del proyecto ${project.title}.`} 
+                image={project.image}
+                url={`https://www.didusasrl.com/projects/${slugify(project.title)}`}
+            />
             <div className="h-[60vh] relative">
                 <div className="absolute inset-0 bg-black/40 z-10"/>
                 <img src={project.image} alt={project.title} className="w-full h-full object-cover"/>
@@ -271,7 +284,7 @@ export const ProjectDetailPage = () => {
                         <h3 className="text-2xl font-bold mb-8 text-dark">Quizás te pueda interesar</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {relatedProjects.map(p => (
-                                <Link to={`/projects/${p.id}`} key={p.id} className="group block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition duration-300">
+                                <Link to={`/projects/${slugify(p.title)}`} key={p.id} className="group block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition duration-300">
                                      <div className="h-48 overflow-hidden relative">
                                         <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700"/>
                                         <div className="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded">{p.category}</div>

@@ -5,6 +5,7 @@ import { useData } from '../context/DataContext';
 import { Reveal } from './Reveal';
 import { Link } from 'react-router-dom';
 import { WHATSAPP_LINK, WHATSAPP_NUMBER } from '../constants';
+import { slugify } from '../utils';
 
 export const BrandsSection = () => {
   const { clientBrands } = useData();
@@ -131,7 +132,7 @@ export const ProjectsSection = () => {
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((project, idx) => (
                  <Reveal key={project.id} delay={idx * 150}>
-                    <Link to={`/projects/${project.id}`} className="block group relative overflow-hidden rounded-lg cursor-pointer h-72 bg-gray-800">
+                    <Link to={`/projects/${slugify(project.title)}`} className="block group relative overflow-hidden rounded-lg cursor-pointer h-72 bg-gray-800">
                        <img 
                           src={project.image} 
                           alt={project.title} 

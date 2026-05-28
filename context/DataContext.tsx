@@ -68,50 +68,83 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
           // 2. Projects
           const { data: pData } = await supabase.from('projects').select('*').order('id');
           if (pData && pData.length > 0) {
-              const hasLopesan = pData.some((p: any) => p.title.toLowerCase().includes('lopesan') || p.title.toLowerCase().includes('lopesas') || p.id === 7);
-              if (!hasLopesan) {
+              let tempProjects = [...pData];
+
+              // Check and update/insert Lopesan
+              const lopesanIdx = tempProjects.findIndex((p: any) => p.title.toLowerCase().includes('lopesan') || p.title.toLowerCase().includes('lopesas') || p.id === 7);
+              if (lopesanIdx === -1) {
                   const lopesanProject = PROJECTS.find((p: any) => p.id === 7);
                   if (lopesanProject) {
-                      setProjects([...pData, lopesanProject]);
-                  } else {
-                      setProjects(pData);
+                      tempProjects.push(lopesanProject);
+                      supabase.from('projects').insert([lopesanProject]).then(() => {});
                   }
               } else {
-                  const updated = pData.map((p: any) => {
-                      if (p.title.toLowerCase().includes('lopesan') || p.title.toLowerCase().includes('lopesas') || p.id === 7) {
-                          const updatedDesc = p.description 
-                              ? p.description.replace(/Lopesas/g, 'Lopesan') 
-                              : "Diseño e instalación integral de sistemas de climatización (HVAC), soluciones avanzadas de ductos y acabados de construcción ligera para las instalaciones del Proyecto Lopesan.";
-                          
-                          // Proactively attempt to run an update on Supabase so it persists correctly
-                          if (p.title !== "Proyecto Lopesan" || p.cloudinaryTag !== "lopesan" || p.client !== "Lopesan SRL") {
-                              supabase.from('projects')
-                                .update({ 
-                                    title: "Proyecto Lopesan", 
-                                    client: "Lopesan SRL", 
-                                    cloudinaryTag: "lopesan",
-                                    cloudinaryCloudName: "dap38hi9l",
-                                    image: "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg",
-                                    description: updatedDesc
-                                })
-                                .eq('id', p.id)
-                                .then(() => {});
-                          }
-
-                          return {
-                              ...p,
-                              title: "Proyecto Lopesan",
-                              client: "Lopesan SRL",
-                              description: updatedDesc,
-                              cloudinaryCloudName: p.cloudinaryCloudName || "dap38hi9l",
-                              cloudinaryTag: "lopesan",
-                              image: "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg"
-                          };
-                      }
-                      return p;
-                  });
-                  setProjects(updated);
+                  const p = tempProjects[lopesanIdx];
+                  const updatedDesc = p.description 
+                      ? p.description.replace(/Lopesas/g, 'Lopesan') 
+                      : "Diseño e instalación integral de sistemas de climatización (HVAC), soluciones avanzadas de ductos y acabados de construcción ligera para las instalaciones del Proyecto Lopesan.";
+                  
+                  if (p.title !== "Proyecto Lopesan" || p.cloudinaryTag !== "lopesan" || p.client !== "Lopesan SRL" || p.image !== "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg") {
+                      supabase.from('projects')
+                        .update({ 
+                            title: "Proyecto Lopesan", 
+                            client: "Lopesan SRL", 
+                            cloudinaryTag: "lopesan",
+                            cloudinaryCloudName: "dap38hi9l",
+                            image: "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg",
+                            description: updatedDesc
+                        })
+                        .eq('id', p.id)
+                        .then(() => {});
+                  }
+                  tempProjects[lopesanIdx] = {
+                      ...p,
+                      title: "Proyecto Lopesan",
+                      client: "Lopesan SRL",
+                      description: updatedDesc,
+                      cloudinaryCloudName: p.cloudinaryCloudName || "dap38hi9l",
+                      cloudinaryTag: "lopesan",
+                      image: "https://res.cloudinary.com/dap38hi9l/image/upload/v1779988205/lopesan-costa-bavaro_mmqs6l.jpg"
+                  };
               }
+
+              // Check and update/insert Secrets & Breathless Jamaica
+              const breathlessIdx = tempProjects.findIndex((p: any) => p.title.toLowerCase().includes('breathless') || p.title.toLowerCase().includes('secrets') || p.id === 8);
+              if (breathlessIdx === -1) {
+                  const breathlessProject = PROJECTS.find((p: any) => p.id === 8);
+                  if (breathlessProject) {
+                      tempProjects.push(breathlessProject);
+                      supabase.from('projects').insert([breathlessProject]).then(() => {});
+                  }
+              } else {
+                  const p = tempProjects[breathlessIdx];
+                  if (p.title !== "Proyecto Secrets & Breathless Jamaica" || p.cloudinaryTag !== "BREATHLESS" || p.client !== "Secrets & Breathless Resorts" || p.image !== "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop") {
+                      supabase.from('projects')
+                        .update({ 
+                            title: "Proyecto Secrets & Breathless Jamaica", 
+                            client: "Secrets & Breathless Resorts", 
+                            location: "Jamaica",
+                            category: "Climatización y Construcción",
+                            cloudinaryTag: "BREATHLESS",
+                            cloudinaryCloudName: "dap38hi9l",
+                            image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop"
+                        })
+                        .eq('id', p.id)
+                        .then(() => {});
+                  }
+                  tempProjects[breathlessIdx] = {
+                      ...p,
+                      title: "Proyecto Secrets & Breathless Jamaica",
+                      client: "Secrets & Breathless Resorts",
+                      location: "Jamaica",
+                      category: "Climatización y Construcción",
+                      cloudinaryCloudName: "dap38hi9l",
+                      cloudinaryTag: "BREATHLESS",
+                      image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop"
+                  };
+              }
+
+              setProjects(tempProjects);
           } else {
               setProjects(PROJECTS);
           }

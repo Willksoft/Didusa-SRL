@@ -10,20 +10,37 @@ interface SEOProps {
 
 export const SEO: React.FC<SEOProps> = ({ title, description, image, url }) => {
   useEffect(() => {
+    // Helper to update or create a meta tag dynamically
+    const updateOrCreateMeta = (selector: string, attrName: string, attrVal: string, contentVal: string) => {
+        let el = document.querySelector(selector);
+        if (!el) {
+            el = document.createElement('meta');
+            el.setAttribute(attrName, attrVal);
+            document.head.appendChild(el);
+        }
+        el.setAttribute('content', contentVal);
+    };
+
     // Basic SEO
     document.title = `${title} | Didusa SRL`;
-    document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+    updateOrCreateMeta('meta[name="description"]', 'name', 'description', description);
 
     // Open Graph / Facebook
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
-    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
-    if (image) document.querySelector('meta[property="og:image"]')?.setAttribute('content', image);
-    if (url) document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+    updateOrCreateMeta('meta[property="og:title"]', 'property', 'og:title', title);
+    updateOrCreateMeta('meta[property="og:description"]', 'property', 'og:description', description);
+    if (image) {
+        updateOrCreateMeta('meta[property="og:image"]', 'property', 'og:image', image);
+    }
+    if (url) {
+        updateOrCreateMeta('meta[property="og:url"]', 'property', 'og:url', url);
+    }
 
     // Twitter
-    document.querySelector('meta[property="twitter:title"]')?.setAttribute('content', title);
-    document.querySelector('meta[property="twitter:description"]')?.setAttribute('content', description);
-    if (image) document.querySelector('meta[property="twitter:image"]')?.setAttribute('content', image);
+    updateOrCreateMeta('meta[property="twitter:title"]', 'property', 'twitter:title', title);
+    updateOrCreateMeta('meta[property="twitter:description"]', 'property', 'twitter:description', description);
+    if (image) {
+        updateOrCreateMeta('meta[property="twitter:image"]', 'property', 'twitter:image', image);
+    }
 
     // Canonical
     if (url) {

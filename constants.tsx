@@ -331,5 +331,29 @@ export const PROJECTS: Project[] = [
         caption: "Lopesan Costa Bávaro - Vista General"
       }
     ]
+  },
+  {
+    id: 8,
+    title: "Proyecto Secrets & Breathless Jamaica",
+    category: "Climatización y Construcción",
+    image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop",
+    client: "Secrets & Breathless Resorts",
+    location: "Jamaica",
+    description: "Diseño e instalación integral de sistemas de climatización (HVAC), redes de ductos y acabados de construcción ligera para las lujosas instalaciones del Proyecto Secrets & Breathless en Jamaica.",
+    scope: [
+      "Diseño y trazado de conductos HVAC bajo estándares internacionales",
+      "Sistemas de climatización e inducción de aire con control inteligente",
+      "Terminaciones de plafones mecánicos y enchaquetados acústicos",
+      "Ventilación de áreas comunes y habitaciones del complejo hotelero de lujo"
+    ],
+    cloudinaryCloudName: "dap38hi9l",
+    cloudinaryTag: "BREATHLESS",
+    gallery: [
+      {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop",
+        caption: "Secrets & Breathless Jamaica - Vista General"
+      }
+    ]
   }
 ];

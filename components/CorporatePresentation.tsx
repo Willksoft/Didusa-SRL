@@ -16,13 +16,13 @@ import {
   MapPin, 
   Mail, 
   Globe, 
-  Flame, 
   Building2, 
   Wind, 
   ShieldCheck,
   Activity,
   FileText,
-  UserCheck
+  UserCheck,
+  Briefcase
 } from 'lucide-react';
 
 export const CorporatePresentation = () => {
@@ -67,7 +67,7 @@ export const CorporatePresentation = () => {
   }, [viewMode]);
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased print:bg-white print:text-black">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans select-none antialiased print:bg-white print:text-black">
       {/* Dynamic Style block for precise print control and desktop scroll locks */}
       <style>{`
         @media print {
@@ -101,7 +101,7 @@ export const CorporatePresentation = () => {
             position: relative !important;
             box-sizing: border-box !important;
             overflow: hidden !important;
-            padding: 1.2in !important;
+            padding: 1in !important;
           }
         }
         @media (min-width: 1024px) {
@@ -110,7 +110,7 @@ export const CorporatePresentation = () => {
             height: 100vh;
           }
         }
-        /* Lock aspect ratio in desktop slideshow */
+        /* Lock aspect ratio in desktop slideshow to perfectly match 11x8.5 letter paper in landscape */
         .landscape-slide-frame {
           aspect-ratio: 11 / 8.5;
           max-height: calc(100vh - 140px);
@@ -120,7 +120,7 @@ export const CorporatePresentation = () => {
       `}</style>
 
       {/* FLOATING ACTION HEADER (HIDDEN WHEN PRINTING) */}
-      <header className="no-print bg-white border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50 shadow-sm text-slate-800">
+      <header className="no-print bg-white border-b border-rose-100 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50 shadow-sm text-slate-800">
         <div className="flex items-center gap-3">
           <Link to="/" className="text-blue-600 hover:text-blue-800 transition flex items-center gap-1.5 text-sm font-semibold">
             <ArrowLeft size={16} />
@@ -130,7 +130,7 @@ export const CorporatePresentation = () => {
           <div className="flex items-center gap-2">
             <Layers className="text-blue-600" size={20} />
             <h1 className="font-extrabold tracking-tight text-slate-900 text-base">
-              DIDUSA SRL <span className="font-light text-slate-500">· Dossier de Presentación</span>
+              DIDUSA S.R.L. <span className="font-light text-slate-500">· Presentación Corporativa</span>
             </h1>
           </div>
         </div>
@@ -145,7 +145,7 @@ export const CorporatePresentation = () => {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Vista Diapositivas
+              Diapositivas
             </button>
             <button
               onClick={() => setViewMode('all')}
@@ -155,7 +155,7 @@ export const CorporatePresentation = () => {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Vista Imprimible (Todo)
+              Ver Todo (Imprimible)
             </button>
           </div>
 
@@ -164,7 +164,7 @@ export const CorporatePresentation = () => {
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition shadow"
           >
             <Printer size={16} />
-            Imprimir Dossier (11x8.5)
+            Imprimir Presentación (11" x 8.5")
           </button>
         </div>
       </header>
@@ -175,8 +175,8 @@ export const CorporatePresentation = () => {
         {/* INTERACTIVE NAVIGATION IN SLIDESHOW MODE AND SLIDE TITLE */}
         {viewMode === 'slide' && (
           <div className="no-print w-full max-w-[1050px] flex items-center justify-between mb-3 text-slate-600">
-            <div className="text-xs font-mono tracking-wider font-bold bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm text-blue-600">
-              PÁGINA {activeSlide + 1} DE {slidesCount} · 11" x 8.5"
+            <div className="text-xs font-mono tracking-wider font-bold bg-white px-3 py-1.5 rounded-full border border-slate-200 shadow-sm text-blue-600">
+              PÁGINA {activeSlide + 1} DE {slidesCount} · Presentación de Exportación
             </div>
             <div className="flex items-center gap-2">
               <button 
@@ -205,24 +205,24 @@ export const CorporatePresentation = () => {
           {/* SLIDE 1: PORTADA */}
           {(viewMode === 'all' || activeSlide === 0) && (
             <div className="print-slide landscape-slide-frame bg-white border border-slate-200 shadow-2xl rounded-2xl p-10 lg:p-14 flex flex-col justify-between relative overflow-hidden transition-all duration-300">
-              {/* Engineering Blue grid overlay for subtle corporate style */}
-              <div className="absolute inset-0 opacity-[0.04] pointer-events-none stroke-blue-700">
+              {/* Engineering Blueprint pattern watermark */}
+              <div className="absolute inset-0 opacity-[0.05] pointer-events-none stroke-blue-700">
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <pattern id="grid-pattern-light" width="30" height="30" patternUnits="userSpaceOnUse">
-                      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="currentColor" strokeWidth="1" />
+                    <pattern id="grid-pattern-light" width="25" height="25" patternUnits="userSpaceOnUse">
+                      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="currentColor" strokeWidth="1" />
                     </pattern>
                   </defs>
                   <rect width="100%" height="100%" fill="url(#grid-pattern-light)" />
                 </svg>
               </div>
 
-              {/* Cover Background Graphic */}
+              {/* Cover Background Graphic - High-impact industrial duct system image as requested */}
               <div className="absolute top-0 right-0 w-1/2 h-full hidden md:block">
                 <div 
                   className="w-full h-full object-cover rounded-r-2xl"
                   style={{
-                    backgroundImage: `linear-gradient(to right, #ffffff 15%, transparent 100%), url('https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=1000&q=80')`,
+                    backgroundImage: `linear-gradient(to right, #ffffff 18%, transparent 100%), url('https://images.unsplash.com/photo-1621905252507-b354bc25edac?auto=format&fit=crop&w=1200&q=80')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
@@ -236,46 +236,53 @@ export const CorporatePresentation = () => {
                   <span className="text-xs font-bold uppercase tracking-widest text-blue-600 font-mono">Dossier de Presentación</span>
                 </div>
                 <div className="text-right">
-                  <div className="text-xl font-black tracking-tight text-blue-900 font-sans">DIDUSA SRL</div>
-                  <div className="text-[9px] text-slate-500 font-mono tracking-wider font-semibold uppercase">Ingeniería & Climatización</div>
+                  <div className="text-base font-black tracking-tight text-blue-900 font-sans">DIDUSA S.R.L.</div>
+                  <div className="text-[9px] text-slate-500 font-mono tracking-wider font-semibold uppercase">Punta Cana & Jamaica</div>
                 </div>
               </div>
 
               {/* Cover Main Content */}
-              <div className="my-auto z-10 space-y-4 max-w-2xl">
+              <div className="my-auto z-10 space-y-5 max-w-2xl">
                 <div className="space-y-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2.5 py-1 rounded">Mundo Electromecánico</span>
-                  <h2 className="text-4xl lg:text-5xl font-black tracking-tight leading-none text-slate-900 pt-1">
-                    INFORME <br />
-                    <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                      CORPORATIVO EMPRESARIAL
+                  <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded">
+                    Operaciones de Ingeniería de Ductos
+                  </span>
+                  <div className="pt-2 text-gold-600">
+                    <p className="text-sm font-bold uppercase font-mono tracking-wider text-slate-500">
+                      DISEÑO E INSTALACIONES DE DUCTO DIDUSA S.R.L.
+                    </p>
+                  </div>
+                  <h2 className="text-4xl lg:text-5xl font-black tracking-tight leading-none text-slate-950 pt-1">
+                    PRESENTACIÓN <br />
+                    <span className="bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">
+                      CORPORATIVA EMPRESARIAL
                     </span>
                   </h2>
                 </div>
-                <div className="h-1.5 w-32 bg-blue-600 rounded" />
-                <p className="text-base text-slate-600 leading-relaxed max-w-xl font-medium">
-                  Diseño, fabricación e instalación integral de ductos galvanizados, sistemas de climatización industrial avanzados (HVAC), fontanería especializada y obras electromecánicas comerciales.
+                <div className="h-1.5 w-36 bg-blue-600 rounded" />
+                <p className="text-sm lg:text-base text-slate-600 leading-relaxed max-w-xl font-medium">
+                  Líderes internacionales en el diseño, prefabricación e instalación de ductos galvanizados, climatización industrial (HVAC), y proyectos de envergadura en la República Dominicana y Jamaica.
                 </p>
               </div>
 
               {/* Slider Footer */}
               <div className="border-t border-slate-100 pt-6 flex justify-between items-end z-10">
-                <div className="grid grid-cols-2 gap-x-8 gap-y-1 text-xs">
+                <div className="grid grid-cols-2 gap-x-12 gap-y-1 text-xs">
                   <div>
-                    <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Ubicación Central</span>
+                    <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Ubicación Bavaro</span>
                     <strong className="text-slate-700 font-semibold flex items-center gap-1 mt-0.5">
                       <MapPin size={13} className="text-blue-600" /> Punta Cana, Rep. Dom.
                     </strong>
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Enlace Administrativo</span>
+                    <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Operaciones Jamaica</span>
                     <strong className="text-slate-700 font-semibold flex items-center gap-1 mt-0.5">
-                      <Mail size={13} className="text-blue-600" /> {EMAIL_CONTACT}
+                      <Globe size={13} className="text-teal-600" /> Montego Bay, Jamaica
                     </strong>
                   </div>
                 </div>
-                <div className="text-xs font-mono text-slate-400">
-                  Residencial Sol Bavaro · Pág. 1
+                <div className="text-xs font-mono text-slate-400 font-semibold">
+                  didusasrl.com · Pág. 1
                 </div>
               </div>
             </div>
@@ -291,37 +298,48 @@ export const CorporatePresentation = () => {
                     <Building2 size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">DIDUSA SRL</h3>
-                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold">Perfil & Organización</p>
+                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">DIDUSA S.R.L.</h3>
+                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold">Perfil & Alcance Técnico</p>
                   </div>
                 </div>
                 <div className="text-right text-xs text-slate-400 font-mono">
-                  Dossier Institucional · Pág. 2
+                  Presentación de la Empresa · Pág. 2
                 </div>
               </div>
 
-              {/* Grid Content with Unsplash Image */}
+              {/* Grid Content with Unsplash Image showing duct engineers installation */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 my-auto py-2 items-center">
                 
                 {/* Text Block left (7 Cols) */}
                 <div className="md:col-span-7 space-y-4">
                   <div className="space-y-2">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600">Quiénes Somos</span>
-                    <h4 className="text-xl font-bold text-slate-900 leading-tight">Soluciones Electromecánicas y Climatización de Vanguardia</h4>
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      Somos una empresa dominicana especializada en soluciones electromecánicas integrales. Nos dedicamos con pasión al diseño, fabricación, montaje y mantenimiento de sistemas residenciales, comerciales e industriales a nivel nacional.
+                    <h4 className="text-lg font-bold text-slate-900 leading-tight">DISEÑO E INSTALACIONES DE DUCTO DIDUSA S.R.L.</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                      Somos una firma de ingeniería encargada de dar soluciones electromecánicas y de climatización premium. Nos caracterizamos por un robusto equipo de técnicos y por brindar un servicio que cumple los estándares ASHRAE. Nuestra presencia se extiende desde República Dominicana hasta el Caribe angloparlante.
                     </p>
                   </div>
 
+                  {/* Highlights regarding Caribbean expansion (Jamaica) */}
+                  <div className="bg-sky-50 border border-sky-100 p-3 rounded-lg flex items-start gap-2.5">
+                    <Globe size={18} className="text-blue-700 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h5 className="text-[11px] font-extrabold text-blue-900 uppercase">Proyección en Jamaica</h5>
+                      <p className="text-[10px] text-slate-700 leading-normal mt-0.5">
+                        Consolidados como un actor de confianza internacional, destacando nuestra participación clave en las instalaciones del complejo hotelero <strong>Secrets & Breathless Resorts en Montego Bay, Jamaica</strong>.
+                      </p>
+                    </div>
+                  </div>
+
                   {/* Mission / Vision Cards */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
                       <div className="flex items-center gap-2 text-blue-600 mb-1">
                         <Target size={15} />
                         <h5 className="font-bold text-xs text-slate-950">Misión</h5>
                       </div>
-                      <p className="text-[11px] text-slate-600 leading-normal">
-                        Brindar servicios electromecánicos excepcionales con altos estándares de calidad, asegurando eficiencia térmica, durabilidad e innovación continua.
+                      <p className="text-[10px] text-slate-600 leading-normal">
+                        Brindar soluciones de ductería y aire acondicionado con la más alta precisión técnica para garantizar confort y máxima eficiencia de flujo.
                       </p>
                     </div>
 
@@ -330,47 +348,35 @@ export const CorporatePresentation = () => {
                         <Eye size={15} />
                         <h5 className="font-bold text-xs text-slate-950">Visión</h5>
                       </div>
-                      <p className="text-[11px] text-slate-600 leading-normal">
-                        Ser líderes absolutos en climatización avanzada y ductos, reconocidos por la excelencia de ingeniería y valor ético en cada obra.
+                      <p className="text-[10px] text-slate-600 leading-normal">
+                        Ser el referente indiscutible de ingeniería electromecánica en el Caribe, llevando el sello de calidad dominicano a los mercados internacionales.
                       </p>
-                    </div>
-                  </div>
-
-                  {/* Valores */}
-                  <div className="space-y-1.5 pt-1">
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Valores Corporativos</div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {['Responsabilidad', 'Honestidad', 'Profesionalismo', 'Calidad', 'Innovación', 'Trabajo en Equipo'].map((val, i) => (
-                        <span key={i} className="px-2 py-0.5 text-[10px] bg-blue-50 border border-blue-100 text-blue-700 font-semibold rounded">
-                          ✓ {val}
-                        </span>
-                      ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Right side - curated Image */}
+                {/* Right side - curated Image of HVAC / big ducts */}
                 <div className="md:col-span-5 h-full min-h-[180px] md:min-h-[260px] relative rounded-xl overflow-hidden shadow-md border border-slate-100">
                   <img 
-                    src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=600&q=80"
-                    alt="Ingeniería Civil y Planificación"
+                    src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80"
+                    alt="Duct-installation work"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-blue-900/10 mix-blend-multiply" />
                   <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-sm p-3 rounded-lg border border-slate-100">
                     <p className="text-[10px] font-bold text-slate-900 uppercase tracking-widest flex items-center gap-1">
-                      <UserCheck size={12} className="text-blue-600" /> Presencia e Impacto
+                      <UserCheck size={12} className="text-blue-600" /> Presencia Estratégica
                     </p>
-                    <p className="text-[9px] text-slate-500 font-medium">Ubicados en Punta Cana para servicio expedito a toda la región Este y el país.</p>
+                    <p className="text-[9px] text-slate-500 font-medium leading-tight">Sede central en Residencial Sol Bavaro, Punta Cana, respaldando una red logística internacional.</p>
                   </div>
                 </div>
 
               </div>
 
               {/* Footer */}
-              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
-                <div>Residencial Sol Bavaro, Punta Cana · Rep. Dominicana</div>
-                <div>Compromiso y Confiabilidad</div>
+              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono font-semibold">
+                <div>Residencial Sol Bavaro, Av. Barceló, Punta Cana · RD</div>
+                <div>Garantía sin Fronteras</div>
               </div>
             </div>
           )}
@@ -385,12 +391,12 @@ export const CorporatePresentation = () => {
                     <Wind size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Soluciones Mecánicas</h3>
+                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Especialidades Mecánicas</h3>
                     <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold font-mono">PORTAFOLIO DE SERVICIOS · PARTE I</p>
                   </div>
                 </div>
                 <div className="text-right text-xs text-slate-400 font-mono">
-                  Dossier Institucional · Pág. 3
+                  Presentación de la Empresa · Pág. 3
                 </div>
               </div>
 
@@ -406,20 +412,20 @@ export const CorporatePresentation = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-xs text-slate-900 uppercase">Fabricación de Ductos</h4>
-                      <p className="text-[10px] text-slate-500 mt-0.5">Sistemas de conducción de aire galvanizados.</p>
+                      <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Lámina galvanizada de alta especificación.</p>
                     </div>
 
-                    {/* Miniature Curated image to make it eye-catching as requested */}
-                    <div className="h-16 w-full rounded overflow-hidden">
+                    {/* Curated image matching galvanized ducts */}
+                    <div className="h-20 w-full rounded overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80" 
+                        src="https://images.unsplash.com/photo-1621905252507-b354bc25edac?auto=format&fit=crop&w=400&q=80" 
                         className="w-full h-full object-cover"
-                        alt="Ductos de Climatización"
+                        alt="Ductos Galvanizados DIDUSA"
                       />
                     </div>
 
                     <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
-                      {['Ductos circulares y rectangulares', 'Sistemas de ventilación y extracción', 'Instalación de aire acondicionado', 'Balanceo técnico de distribución', 'Aislamiento térmico de conductos'].map((item, index) => (
+                      {['Ductos circulares y spiro', 'Sistemas de extracción de cocina', 'Ventilación mecánica forzada', 'Aislamiento de fibra de vidrio', 'Balanceo de caudal y entrega'].map((item, index) => (
                         <li key={index} className="flex items-center gap-1">
                           <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
                           <span className="truncate">{item}</span>
@@ -438,20 +444,20 @@ export const CorporatePresentation = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-xs text-slate-900 uppercase">HVAC & Climatización</h4>
-                      <p className="text-[10px] text-slate-500 mt-0.5">Control de temperatura y sanidad de aire.</p>
+                      <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Sistemas de enfriamiento masivo.</p>
                     </div>
 
-                    {/* Miniature image */}
-                    <div className="h-16 w-full rounded overflow-hidden">
+                    {/* Curated image matching physical HVAC compressors & technicians */}
+                    <div className="h-20 w-full rounded overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=400&q=80" 
+                        src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80" 
                         className="w-full h-full object-cover"
-                        alt="Instalaciones HVAC"
+                        alt="Equipos de Climatización"
                       />
                     </div>
 
                     <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
-                      {['Chillers enfriadores por agua y aire', 'Sistemas VRF volumen variable', 'Maniobras y ventilación mecánica', 'Sistemas de calefacción y calderas', 'Controles automáticos inteligentes'].map((item, index) => (
+                      {['U.M.A. (Unidad de Manejo de Aire)', 'Enfriadoras de agua (Chillers)', 'Tecnologías inverter de alta eficiencia', 'Climatización hermética hospitalaria', 'Filtros HEPA y sanidad ambiental'].map((item, index) => (
                         <li key={index} className="flex items-center gap-1">
                           <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
                           <span className="truncate">{item}</span>
@@ -466,24 +472,24 @@ export const CorporatePresentation = () => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-[9px] font-mono tracking-widest text-slate-500 font-bold bg-slate-200/50 px-2 py-0.5 rounded">ÁREA 03</span>
-                      <ShieldCheck size={16} className="text-blue-500" />
+                      <ShieldCheck size={16} className="text-green-600" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-xs text-slate-900 uppercase">Equipos TRANE</h4>
-                      <p className="text-[10px] text-slate-500 mt-0.5">Distribución y soporte autorizado.</p>
+                      <h4 className="font-bold text-xs text-slate-900 uppercase">Representantes de TRANE</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Suministros con respaldo líder.</p>
                     </div>
 
-                    {/* Miniature image of premium hotel climate setup */}
-                    <div className="h-16 w-full rounded overflow-hidden">
+                    {/* Unsplash image representing professional chiller/compressor machinery */}
+                    <div className="h-20 w-full rounded overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=400&q=80" 
+                        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" 
                         className="w-full h-full object-cover"
-                        alt="Climatización Hotelera"
+                        alt="Auditoría e Infraestructura"
                       />
                     </div>
 
                     <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
-                      {['Distribución oficial de la marca', 'Instalación certificada por ingenieros', 'Diagnóstico de eficiencia energética', 'Mantenimiento preventivo autorizado', 'Piezas y repuestos oficiales TRANE'].map((item, index) => (
+                      {['Venta de equipos certificados', 'Instalación y puesta en marcha oficial', 'Garantías TRANE de fábrica directa', 'Ingeniería con software de carga térmica', 'Soporte de repuestos originales'].map((item, index) => (
                         <li key={index} className="flex items-center gap-1">
                           <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
                           <span className="truncate">{item}</span>
@@ -496,9 +502,9 @@ export const CorporatePresentation = () => {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
-                <div>Av. Barceló, Res. Sol Bavaro, Punta Cana · RD</div>
-                <div>Ingeniería Autorizada con Estándar Internacional</div>
+              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono font-semibold">
+                <div>Didusa S.R.L. · Punta Cana & Jamaica (Secrets Resorts)</div>
+                <div>Ingeniería Electromecánica de Clase Mundial</div>
               </div>
             </div>
           )}
@@ -513,12 +519,12 @@ export const CorporatePresentation = () => {
                     <Compass size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Ingeniería & Flujo</h3>
+                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Ingeniería Complementaria</h3>
                     <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold font-mono">PORTAFOLIO DE SERVICIOS · PARTE II</p>
                   </div>
                 </div>
                 <div className="text-right text-xs text-slate-400 font-mono">
-                  Dossier Institucional · Pág. 4
+                  Presentación de la Empresa · Pág. 4
                 </div>
               </div>
 
@@ -533,21 +539,21 @@ export const CorporatePresentation = () => {
                       <Droplet size={16} className="text-blue-500" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-xs text-slate-900 uppercase">Fontanería General</h4>
-                      <p className="text-[10px] text-slate-500 mt-0.5">Redes sanitarias e impulsiones hidráulicas.</p>
+                      <h4 className="font-bold text-xs text-slate-900 uppercase">Fontanería Comercial</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Tuberías e impulsiones hidráulicas.</p>
                     </div>
 
-                    {/* Miniature image */}
-                    <div className="h-16 w-full rounded overflow-hidden">
+                    {/* Image showing pipe networks or sanitaries */}
+                    <div className="h-20 w-full rounded overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" 
+                        src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=400&q=80" 
                         className="w-full h-full object-cover"
-                        alt="Tuberías y Fontanería"
+                        alt="Tuberías y Redes de Agua"
                       />
                     </div>
 
                     <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
-                      {['Sistemas de agua fría y caliente', 'Distribución de aguas heladas', 'Redes de desagües cloacales', 'Instalación de bombas principales', 'Sistemas hidroneumáticos presurizados'].map((item, index) => (
+                      {['Distribución de agua fría y caliente', 'Sistemas de retorno y calderas', 'Redes sanitarias completas', 'Instalación de bombas y reguladores', 'Sistemas contra incendios comerciales'].map((item, index) => (
                         <li key={index} className="flex items-center gap-1">
                           <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
                           <span className="truncate">{item}</span>
@@ -566,20 +572,20 @@ export const CorporatePresentation = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-xs text-slate-900 uppercase">Diseño de Planos</h4>
-                      <p className="text-[10px] text-slate-500 mt-0.5 font-sans">Planos electromecánicos certificados.</p>
+                      <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Estudios electromecánicos CAD/BIM.</p>
                     </div>
 
-                    {/* Miniature image (BIM CAD design plans) */}
-                    <div className="h-16 w-full rounded overflow-hidden">
+                    {/* Image representing blueprint/schematics drafting */}
+                    <div className="h-20 w-full rounded overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" 
+                        src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=400&q=80" 
                         className="w-full h-full object-cover"
-                        alt="Dibujo Técnico Planos"
+                        alt="Planos Electromecánicos"
                       />
                     </div>
 
                     <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
-                      {['Diseños y diagramación de ductos', 'Ingeniería hidráulica y de fluidos', 'Planos de cableado y fuerza', 'Supervisión técnica de obras', 'Asesoramiento de proyectos constructores'].map((item, index) => (
+                      {['Planos HVAC detallados', 'Cálculos de conductos e inyección', 'Estudios de carga y simulación térmica', 'Supervisión de obra presencial', 'Diseño de plantas hidromecánicas'].map((item, index) => (
                         <li key={index} className="flex items-center gap-1">
                           <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
                           <span className="truncate">{item}</span>
@@ -598,20 +604,20 @@ export const CorporatePresentation = () => {
                     </div>
                     <div>
                       <h4 className="font-bold text-xs text-slate-900 uppercase">Mantenimiento General</h4>
-                      <p className="text-[10px] text-slate-500 mt-0.5">Preservando el rendimiento operativo.</p>
+                      <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Protegiendo la vida de sus activos.</p>
                     </div>
 
-                    {/* Miniature image */}
-                    <div className="h-16 w-full rounded overflow-hidden">
+                    {/* Image showing mechanical maintenance check */}
+                    <div className="h-20 w-full rounded overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=400&q=80" 
+                        src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80" 
                         className="w-full h-full object-cover"
-                        alt="Inspección Mantenimiento"
+                        alt="Mantenimiento de ductos y aires"
                       />
                     </div>
 
                     <ul className="space-y-1 text-[10px] text-slate-600 font-medium">
-                      {['Contratos preventivos periódicos', 'Mantenimiento correctivo de emergencia', 'Inspecciones termográficas técnicas', 'Limpieza profunda de serpentines', 'Optimización de consumo energético'].map((item, index) => (
+                      {['Planes preventivos para hoteles', 'Limpiezas químicas de ducterías', 'Descontaminación con luz ultravioleta', 'Mantenimiento correctivo express', 'Medición de calidad de aire'].map((item, index) => (
                         <li key={index} className="flex items-center gap-1">
                           <CheckCircle2 size={10} className="text-blue-600 flex-shrink-0" />
                           <span className="truncate">{item}</span>
@@ -624,9 +630,9 @@ export const CorporatePresentation = () => {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
-                <div>Proyectos con Calidad Certificada · DIDUSA SRL</div>
-                <div>Garantía PostVenta</div>
+              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono font-semibold">
+                <div>Proyectos con Calidad Certificada · DIDUSA S.R.L.</div>
+                <div>Asistencia Personalizada 24/7</div>
               </div>
             </div>
           )}
@@ -641,29 +647,29 @@ export const CorporatePresentation = () => {
                     <Globe size={20} />
                   </div>
                   <div>
-                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Sectores y Contacto</h3>
-                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold font-mono">Resumen Administrativo</p>
+                    <h3 className="font-extrabold tracking-tight text-slate-950 text-base">Impacto Internacional & Contacto</h3>
+                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold font-mono">Presencia en RD y Jamaica</p>
                   </div>
                 </div>
                 <div className="text-right text-xs text-slate-400 font-mono">
-                  Dossier Institucional · Pág. 5
+                  Presentación de la Empresa · Pág. 5
                 </div>
               </div>
 
               {/* Grid Content */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto py-2 items-center">
                 
-                {/* Clientes y Sectores */}
+                {/* Clientes y Sectores de Hospitalidad */}
                 <div className="space-y-4">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600">Alcance de Operación</span>
-                    <h4 className="text-lg font-bold text-slate-900 mt-0.5">Sectores que Confían en Nosotros</h4>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600">Sectores Clave</span>
+                    <h4 className="text-lg font-bold text-slate-900 mt-0.5">Infraestructuras Hoteleras y Comerciales</h4>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {[
-                      'Constructoras', 'Complejos Hoteleros', 'Hospitales & Clínicas', 'Fábricas e Industrias', 
-                      'Gastro & Restaurantes', 'Centros Comerciales', 'Oficinas Corporativas', 'Obras Residenciales'
+                      'Complejos Hoteleros', 'Secrets & Breathless Jamaica', 'Hospitales y Clínicas', 'Obras de Lujo en Punta Cana', 
+                      'Centros Comerciales', 'Industrias de Bebidas y Alimentos', 'Oficinas de Negocios', 'Constructoras Nacionales'
                     ].map((sector, index) => (
                       <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-700 font-semibold shadow-xs">
                         <span className="h-2 w-2 rounded-full bg-blue-600 flex-shrink-0" />
@@ -671,18 +677,24 @@ export const CorporatePresentation = () => {
                       </div>
                     ))}
                   </div>
-                  
-                  <p className="text-xs text-slate-500 italic max-w-sm">
-                    "Todas nuestras instalaciones cumplen estrictamente con los lineamientos ASHRAE e internacionales de seguridad e impacto ambiental."
-                  </p>
+
+                  {/* Highlights of Jamaica complex */}
+                  <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl">
+                    <p className="text-xs text-emerald-950 font-bold flex items-center gap-1">
+                      🇯🇲 Proyecto Destacado en Jamaica
+                    </p>
+                    <p className="text-[11px] text-emerald-800 leading-normal mt-0.5 font-medium">
+                      Orgullosamente responsables de las instalaciones de conductos del majestuoso <strong>Secrets & Breathless Resorts Montego Bay, Jamaica</strong>.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Conclusion & Contact Information */}
                 <div className="space-y-4 flex flex-col justify-between">
                   <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
                     <h4 className="text-[10px] font-bold uppercase tracking-widest text-blue-800 font-mono mb-1">Garantía DIDUSA</h4>
-                    <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                      Ofrecemos soluciones verdaderamente integrales con ingeniería de primer nivel para toda la República Dominicana. Nuestro enfoque se centra en el ahorro energético, confort y flujo óptimo.
+                    <p className="text-xs text-slate-755 leading-relaxed font-semibold">
+                      En DISEÑO E INSTALACIONES DE DUCTO DIDUSA S.R.L. diseñamos ductos que reducen la fricción del aire, ayudando a disminuir sustancialmente los costos de energía eléctrica en grandes hoteles.
                     </p>
                   </div>
 
@@ -693,26 +705,26 @@ export const CorporatePresentation = () => {
                       <div className="font-extrabold text-slate-900 flex items-center gap-1">
                         <MapPin size={12} className="text-blue-600 flex-shrink-0" /> Punta Cana, Rep. Dom.
                       </div>
-                      <div className="text-[9px] text-slate-500 font-medium">Residencial Sol Bavaro, Av. Barceló</div>
+                      <div className="text-[9px] text-slate-500 font-semibold">Residencial Sol Bavaro, Av. Barceló</div>
                     </div>
                     
                     <div className="space-y-0.5">
-                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Ingeniero a Cargo</div>
+                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Ingeniero Principal</div>
                       <div className="font-extrabold text-slate-900 flex items-center gap-0.5 truncate">
                         <Mail size={12} className="text-blue-600 flex-shrink-0" /> fferreras
                       </div>
-                      <div className="text-[9px] text-slate-500 italic">fferreras@didusa.onmicrosoft.com</div>
+                      <div className="text-[9px] text-slate-500 font-semibold">fferreras@didusa.onmicrosoft.com</div>
                     </div>
 
                     <div className="space-y-0.5">
-                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Contactos Oficiales</div>
+                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Móvil Central RD</div>
                       <div className="font-extrabold text-slate-900 flex items-center gap-1">
                         <Phone size={11} className="text-blue-600" /> {MAIN_PHONE}
                       </div>
                     </div>
 
                     <div className="space-y-0.5">
-                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Canal de WhatsApp</div>
+                      <div className="text-slate-400 font-bold uppercase tracking-wider text-[8px]">Soporte WhatsApp</div>
                       <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="font-extrabold text-emerald-600 hover:underline flex items-center gap-1">
                         <span>💬 +1 (829) 208-8107</span>
                       </a>
@@ -724,9 +736,9 @@ export const CorporatePresentation = () => {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono">
+              <div className="border-t border-slate-100 pt-4 flex justify-between items-center text-xs text-slate-400 font-mono font-semibold">
                 <div>didusasrl.com · Excelencia en Climatización & Ductería 2026</div>
-                <div>Punta Cana, RD</div>
+                <div>Punta Cana & Jamaica</div>
               </div>
             </div>
           )}

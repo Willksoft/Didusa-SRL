@@ -197,15 +197,10 @@ const Hero = () => {
       <div className="relative z-20 h-full container mx-auto px-6 flex flex-col justify-center items-center text-center pt-32 pb-32">
          <div key={activeSlide} className="flex flex-col items-center max-w-5xl">
              
-             {/* Pill Badge - Glassmorphism style */}
-             <div className="animate-[fadeInDown_1s_ease-out] mb-8">
-                <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium px-6 py-2 rounded-full uppercase tracking-wider shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-                  {currentSlide.badge}
-                </span>
-             </div>
 
-             {/* Headline - Big & Bold */}
-             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight tracking-tight animate-[fadeInUp_1s_ease-out_0.2s] drop-shadow-lg">
+
+             {/* Headline - Elegant & Readable */}
+             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight animate-[fadeInUp_1s_ease-out_0.2s] drop-shadow-lg">
                {currentSlide.title}
              </h1>
 

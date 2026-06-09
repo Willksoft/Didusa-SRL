@@ -10,7 +10,7 @@ import { slugify } from '../utils';
 export const BrandsSection = () => {
   const { clientBrands } = useData();
   return (
-      <section className="py-8 bg-white border-b border-gray-100 overflow-hidden">
+      <section className="pt-12 md:pt-36 pb-12 bg-white border-b border-gray-100 overflow-hidden">
          <div className="container mx-auto px-6 mb-8 text-center">
             <h3 className="text-xl font-bold text-gray-400 uppercase tracking-widest">Nuestros Clientes de Confianza</h3>
          </div>

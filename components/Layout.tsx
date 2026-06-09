@@ -50,7 +50,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -66,63 +66,79 @@ export const Navbar = () => {
   ];
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled || mobileMenuOpen ? 'top-0 bg-dark/95 backdrop-blur-sm shadow-lg' : 'top-0 lg:top-[40px] bg-transparent'}`}>
-      <TopBar /> 
-      
-      <div className="container mx-auto px-6 py-4">
+    <header className={`fixed w-full z-50 transition-all duration-300 top-0 left-0 right-0 ${
+      isScrolled || mobileMenuOpen 
+        ? 'py-4 bg-[#0a1128]/95 backdrop-blur-md shadow-xl border-b border-white/5' 
+        : 'py-6 bg-transparent'
+    }`}>
+      <div className="container mx-auto px-6 lg:px-12">
         <div className="flex justify-between items-center text-white">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 text-2xl font-bold" onClick={() => setMobileMenuOpen(false)}>
-            <div className="text-blue-400">
-               <svg width="40" height="30" viewBox="0 0 50 30" fill="currentColor">
-                  <path d="M5,15 Q15,5 25,15 T45,15" fill="none" stroke="currentColor" strokeWidth="4" />
-                  <path d="M5,22 Q15,12 25,22 T45,22" fill="none" stroke="currentColor" strokeWidth="4" opacity="0.6" />
-               </svg>
-            </div>
-            <span>DIDUSA SRL</span>
-          </Link>
+          
+          {/* Left Side: Logo */}
+          <div className="flex-1 flex justify-start">
+            <Link to="/" className="flex items-center space-x-2.5 text-2xl font-bold tracking-tight" onClick={() => setMobileMenuOpen(false)}>
+              <div className="text-blue-400">
+                 <svg width="36" height="26" viewBox="0 0 50 30" fill="currentColor">
+                    <path d="M5,15 Q15,5 25,15 T45,15" fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" />
+                    <path d="M5,22 Q15,12 25,22 T45,22" fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" opacity="0.6" />
+                 </svg>
+              </div>
+              <span className="font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-blue-200">DIDUSA SRL</span>
+            </Link>
+          </div>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          {/* Center Side: Desktop Menu links */}
+          <nav className="hidden lg:flex items-center space-x-10">
             {navLinks.map((link) => (
               <Link 
                 key={link.name} 
                 to={link.path} 
-                className={`text-sm font-medium hover:text-blue-400 transition ${location.pathname === link.path ? 'text-blue-400' : ''}`}
+                className={`text-sm font-medium tracking-wide uppercase transition-all duration-300 hover:text-blue-400 relative py-1.5 ${
+                  location.pathname === link.path 
+                    ? 'text-blue-400 font-semibold' 
+                    : 'text-white/90'
+                }`}
               >
                 {link.name}
+                {location.pathname === link.path && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 rounded-full animate-[scaleX_0.3s_ease]" />
+                )}
               </Link>
             ))}
+          </nav>
+
+          {/* Right Side: CTA Button or Mobile Action */}
+          <div className="flex-1 flex justify-end items-center space-x-4">
             <a 
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-whatsapp hover:bg-whatsappDark text-white px-6 py-2.5 rounded text-sm font-semibold transition shadow-lg shadow-green-500/30 flex items-center gap-2 transform hover:-translate-y-0.5"
+              className="hidden lg:inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all duration-300 shadow-lg hover:shadow-blue-600/30 active:scale-95"
             >
-              <Phone size={16} />
               Contactar
             </a>
-          </nav>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="lg:hidden text-white"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+            {/* Mobile Menu Button */}
+            <button 
+              className="lg:hidden text-white p-1 hover:text-blue-400 transition"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+            </button>
+          </div>
+          
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Options */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-dark absolute w-full px-6 py-8 border-t border-gray-800">
+        <div className="lg:hidden bg-[#0a1128]/98 backdrop-blur-lg absolute left-0 w-full px-6 py-8 border-t border-white/5 shadow-2xl">
           <div className="flex flex-col space-y-6">
             {navLinks.map((link) => (
               <Link 
                 key={link.name} 
                 to={link.path}
-                className="text-white text-lg font-medium hover:text-blue-400"
+                className="text-white text-lg font-medium hover:text-blue-400 uppercase tracking-widest"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
@@ -132,7 +148,7 @@ export const Navbar = () => {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-whatsapp text-center text-white px-6 py-3 rounded font-semibold flex justify-center items-center gap-2"
+              className="bg-whatsapp text-center text-white px-6 py-3.5 rounded-full font-bold flex justify-center items-center gap-2 shadow-lg shadow-green-500/20 active:scale-95 transition-all"
               onClick={() => setMobileMenuOpen(false)}
             >
               <Phone size={18} />
